@@ -69,7 +69,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-annotate-as-pure@npm:^7.10.1":
+"@babel/helper-annotate-as-pure@npm:^7.0.0, @babel/helper-annotate-as-pure@npm:^7.10.1":
   version: 7.10.1
   resolution: "@babel/helper-annotate-as-pure@npm:7.10.1"
   dependencies:
@@ -212,7 +212,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-module-imports@npm:^7.10.1, @babel/helper-module-imports@npm:^7.8.3":
+"@babel/helper-module-imports@npm:^7.0.0, @babel/helper-module-imports@npm:^7.10.1, @babel/helper-module-imports@npm:^7.8.3":
   version: 7.10.1
   resolution: "@babel/helper-module-imports@npm:7.10.1"
   dependencies:
@@ -1461,7 +1461,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/traverse@npm:^7.1.0, @babel/traverse@npm:^7.10.1, @babel/traverse@npm:^7.4.3, @babel/traverse@npm:^7.7.0, @babel/traverse@npm:^7.9.0":
+"@babel/traverse@npm:^7.1.0, @babel/traverse@npm:^7.10.1, @babel/traverse@npm:^7.4.3, @babel/traverse@npm:^7.4.5, @babel/traverse@npm:^7.7.0, @babel/traverse@npm:^7.9.0":
   version: 7.10.1
   resolution: "@babel/traverse@npm:7.10.1"
   dependencies:
@@ -1512,6 +1512,36 @@ __metadata:
   version: 10.1.0
   resolution: "@csstools/normalize.css@npm:10.1.0"
   checksum: 3/75d6c92d2ed1c643dd3f33c07feda78983790717c1b03c8b6a35215feac571d1d79e65a3668774eb420bd352651a2c33afd53cd580a25e93b6c6fd8bb0756071
+  languageName: node
+  linkType: hard
+
+"@emotion/is-prop-valid@npm:^0.8.8":
+  version: 0.8.8
+  resolution: "@emotion/is-prop-valid@npm:0.8.8"
+  dependencies:
+    "@emotion/memoize": 0.7.4
+  checksum: 3/4a6993c4e6a49bcdc772aa5931fa2f00ce6367f7f6fc9cfe46dd50014c9510f9c6b1e355f297655875a8bfd1481e42546900bbbc84f3c0b629a001b4d82e436e
+  languageName: node
+  linkType: hard
+
+"@emotion/memoize@npm:0.7.4":
+  version: 0.7.4
+  resolution: "@emotion/memoize@npm:0.7.4"
+  checksum: 3/874123a94c89963dda3438d1ea7f7c17fa670d965610eefaa49e0dbf47cccee6f6108e04175867d7e485d2c04096a98bba5a4bef2606b3bf2070637327ebe3ff
+  languageName: node
+  linkType: hard
+
+"@emotion/stylis@npm:^0.8.4":
+  version: 0.8.5
+  resolution: "@emotion/stylis@npm:0.8.5"
+  checksum: 3/bb43a77f784cce86f7a625519544aab56b8f341117957f7dd15315398780289784bd2ec0ba1bc1b19ac639bdb304a4ed08b1f8e3e4c13e8063b9824e551b3994
+  languageName: node
+  linkType: hard
+
+"@emotion/unitless@npm:^0.7.4":
+  version: 0.7.5
+  resolution: "@emotion/unitless@npm:0.7.5"
+  checksum: 3/0be366ef09860037ef08aed0450cb5510f4be25886005e2f120f8e8b7385de6b41ac47df5b9bd55781e5153853e9ed5f49aa517dcbad34cc23bd8afb0201932a
   languageName: node
   linkType: hard
 
@@ -2020,6 +2050,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/hoist-non-react-statics@npm:*":
+  version: 3.3.1
+  resolution: "@types/hoist-non-react-statics@npm:3.3.1"
+  dependencies:
+    "@types/react": "*"
+    hoist-non-react-statics: ^3.3.0
+  checksum: 3/16ab4c45d4920fa378c8be76554b10061247fc04d2c8af11bdb7d520b3967e9c06d7ad5efd9b0f1657fbc4d095f62c6e1325f03b9141eb1ef2c8095b96fd42f8
+  languageName: node
+  linkType: hard
+
 "@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:^2.0.0":
   version: 2.0.2
   resolution: "@types/istanbul-lib-coverage@npm:2.0.2"
@@ -2106,6 +2146,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-native@npm:*":
+  version: 0.62.12
+  resolution: "@types/react-native@npm:0.62.12"
+  dependencies:
+    "@types/react": "*"
+  checksum: 3/30ae74639160567117fe4ce11e5e1ffe55c6d027208694394a09a1730338f295fa3566f208cc79b030ea52749845b9ebbf218ce38c4e657446343109ea447f33
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:*, @types/react@npm:^16.9.0":
   version: 16.9.35
   resolution: "@types/react@npm:16.9.35"
@@ -2120,6 +2169,18 @@ __metadata:
   version: 1.0.1
   resolution: "@types/stack-utils@npm:1.0.1"
   checksum: 3/59738e4b71b233b438a6ecb9faaf577d6f02afec4ea093d5ad3c10e78cb7096ab32648a2c2017c6c2e6c6853498aa783643a2c6b859c4a75f6750e7b37ae8bae
+  languageName: node
+  linkType: hard
+
+"@types/styled-components@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "@types/styled-components@npm:5.1.0"
+  dependencies:
+    "@types/hoist-non-react-statics": "*"
+    "@types/react": "*"
+    "@types/react-native": "*"
+    csstype: ^2.2.0
+  checksum: 3/7af7cb867902a1efe741f7f4d345bd12c2ab2b6e0b6c2d4cbe9e11d7c658a020efeabcc6862d3170456de53462312de6e9489965d7553d134398f45eeec4797d
   languageName: node
   linkType: hard
 
@@ -3173,6 +3234,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"babel-plugin-styled-components@npm:>= 1":
+  version: 1.10.7
+  resolution: "babel-plugin-styled-components@npm:1.10.7"
+  dependencies:
+    "@babel/helper-annotate-as-pure": ^7.0.0
+    "@babel/helper-module-imports": ^7.0.0
+    babel-plugin-syntax-jsx: ^6.18.0
+    lodash: ^4.17.11
+  peerDependencies:
+    styled-components: ">= 2"
+  checksum: 3/96963da6b9e296d0b46d4035f62c9682dba661ccf3a935a8aa80eb6c367f3d25a12c44d6b17f077f1e31573bbbcf900d27ae800edd1a2bfcafca2dc38c7c2f47
+  languageName: node
+  linkType: hard
+
+"babel-plugin-syntax-jsx@npm:^6.18.0":
+  version: 6.18.0
+  resolution: "babel-plugin-syntax-jsx@npm:6.18.0"
+  checksum: 3/a5c8174ad6165d5f541f9f31cf4b6338ccfb7d586cec111537fa567f13b5fbdcf54f7928db44429d4610aa1be9d07bb03d017b22ba521ff819a6a2090b694797
+  languageName: node
+  linkType: hard
+
 "babel-plugin-syntax-object-rest-spread@npm:^6.8.0":
   version: 6.13.0
   resolution: "babel-plugin-syntax-object-rest-spread@npm:6.13.0"
@@ -3738,6 +3820,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"camelize@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "camelize@npm:1.0.0"
+  checksum: 3/6891ec64c7f4cf6a6182040d592915dc36770ec9f3e96e4dd03925f93f72aa92fc90b59b314ad3ebce406426955b1b8aded52bbb26e5d96242a724f324c95871
+  languageName: node
+  linkType: hard
+
 "caniuse-api@npm:^3.0.0":
   version: 3.0.0
   resolution: "caniuse-api@npm:3.0.0"
@@ -4117,6 +4206,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"components@link:./src/components::locator=noterity-web-client%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "components@link:./src/components::locator=noterity-web-client%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "compose-function@npm:3.0.3":
   version: 3.0.3
   resolution: "compose-function@npm:3.0.3"
@@ -4432,6 +4527,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"css-color-keywords@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "css-color-keywords@npm:1.0.0"
+  checksum: 3/a820d3a6ebb826571e541c4127197ab92bbac652b6d8a875a14faff4e3a2e81b35b61083da60a471c059c1f94bb09f26cd3553aefffa3e571257ac3cd8758ce2
+  languageName: node
+  linkType: hard
+
 "css-color-names@npm:0.0.4, css-color-names@npm:^0.0.4":
   version: 0.0.4
   resolution: "css-color-names@npm:0.0.4"
@@ -4522,6 +4624,17 @@ __metadata:
     domutils: ^1.7.0
     nth-check: ^1.0.2
   checksum: 3/b534aad04abbd433849d55b93e234b81c1ade4422c638a916fd7163db5a3b07186e92ce43c292d954417c8ce020eb31b8990ed2fb30c9c145c7f2549621e8095
+  languageName: node
+  linkType: hard
+
+"css-to-react-native@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "css-to-react-native@npm:3.0.0"
+  dependencies:
+    camelize: ^1.0.0
+    css-color-keywords: ^1.0.0
+    postcss-value-parser: ^4.0.2
+  checksum: 3/d035e1a126cdec0cc52eba94c2294fae2474fdc9b8c971aa64e883f429791cc121726f7a9f390f9b593432691dd21c615c1a85c248ba5085b576e718fc6f739d
   languageName: node
   linkType: hard
 
@@ -6864,6 +6977,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"hoist-non-react-statics@npm:^3.0.0, hoist-non-react-statics@npm:^3.3.0":
+  version: 3.3.2
+  resolution: "hoist-non-react-statics@npm:3.3.2"
+  dependencies:
+    react-is: ^16.7.0
+  checksum: 3/d3e3791d6e3a2741ce0ba38e878081dec49247ef22982a990c80941ee1f564ef16cd5a511bcc8c5e54f1ce8205535e0414ca5feea722c0690c80040be7ebf9df
+  languageName: node
+  linkType: hard
+
 "hosted-git-info@npm:^2.1.4":
   version: 2.8.8
   resolution: "hosted-git-info@npm:2.8.8"
@@ -7286,6 +7408,12 @@ fsevents@^1.2.7:
   checksum: 3/651838e841b5850a10edb5232d8fda9b119f71b9aa53ff8e52457c29729d86338d52175b8c50f77d9311c4b5b367f9d2090acfc4c54b6d643df59130d66b197a
   languageName: node
   linkType: hard
+
+"interfaces@link:./src/interfaces::locator=noterity-web-client%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "interfaces@link:./src/interfaces::locator=noterity-web-client%40workspace%3A."
+  languageName: node
+  linkType: soft
 
 "internal-ip@npm:^4.3.0":
   version: 4.3.0
@@ -9549,8 +9677,10 @@ fsevents@^1.2.7:
     "@types/node": ^12.0.0
     "@types/react": ^16.9.0
     "@types/react-dom": ^16.9.0
+    "@types/styled-components": ^5.1.0
     "@typescript-eslint/eslint-plugin": ^3.0.2
     "@typescript-eslint/parser": ^3.0.2
+    components: "link:./src/components"
     eslint: ^6.8.0
     eslint-config-airbnb: ^18.1.0
     eslint-config-prettier: ^6.11.0
@@ -9560,11 +9690,17 @@ fsevents@^1.2.7:
     eslint-plugin-prettier: ^3.1.3
     eslint-plugin-react: ^7.20.0
     eslint-plugin-react-hooks: ^2.5.1
+    interfaces: "link:./src/interfaces"
     prettier: ^2.0.5
     react: ^16.13.1
     react-dom: ^16.13.1
+    react-is: ^16.13.1
     react-scripts: 3.4.1
+    styled-components: ^5.1.1
+    styled-reset: ^4.1.5
+    theme: "link:./src/theme"
     typescript: ~3.7.2
+    views: "link:./src/views"
   languageName: unknown
   linkType: soft
 
@@ -11607,7 +11743,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.12.0, react-is@npm:^16.8.1, react-is@npm:^16.8.4":
+"react-is@npm:^16.12.0, react-is@npm:^16.13.1, react-is@npm:^16.7.0, react-is@npm:^16.8.1, react-is@npm:^16.8.4":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 3/11bcf1267a314a522615f626f3ce3727a3a24cdbf61c4d452add3550a7875326669631326cfb1ba3e92b6f72244c32ffecf93ad21c0cad8455d3e169d0e3f060
@@ -12572,6 +12708,13 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+"shallowequal@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "shallowequal@npm:1.1.0"
+  checksum: 3/15820dd544ce15521565c366940a46dcbe0f093c1336f6259c7b3e2490ca10135645ee262778f555d3ccc38283207f2f0a41e9a0f26888b5d5159f2904c4ac68
+  languageName: node
+  linkType: hard
+
 "shebang-command@npm:^1.2.0":
   version: 1.2.0
   resolution: "shebang-command@npm:1.2.0"
@@ -13239,6 +13382,37 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+"styled-components@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "styled-components@npm:5.1.1"
+  dependencies:
+    "@babel/helper-module-imports": ^7.0.0
+    "@babel/traverse": ^7.4.5
+    "@emotion/is-prop-valid": ^0.8.8
+    "@emotion/stylis": ^0.8.4
+    "@emotion/unitless": ^0.7.4
+    babel-plugin-styled-components: ">= 1"
+    css-to-react-native: ^3.0.0
+    hoist-non-react-statics: ^3.0.0
+    shallowequal: ^1.1.0
+    supports-color: ^5.5.0
+  peerDependencies:
+    react: ">= 16.8.0"
+    react-dom: ">= 16.8.0"
+    react-is: ">= 16.8.0"
+  checksum: 3/edc198c192bc7721ff87030d40033845cd95b96a4bde09ead7d43439b1e5d6d7fe00edba3714b503fc383a96cfbff08c15583dab850f01d0d935c9cfc2d67108
+  languageName: node
+  linkType: hard
+
+"styled-reset@npm:^4.1.5":
+  version: 4.1.5
+  resolution: "styled-reset@npm:4.1.5"
+  peerDependencies:
+    styled-components: ">=4.0.0 || >=5.0.0"
+  checksum: 3/6a63603cb23fa4dab4d0b405581f3d91a9e099ed70e93a6ac20243287fdebdcea16cd086aa9f3cab3b528fe4b53546a09dea58ecd6070e3abcf733916fb337a3
+  languageName: node
+  linkType: hard
+
 "stylehacks@npm:^4.0.0":
   version: 4.0.3
   resolution: "stylehacks@npm:4.0.3"
@@ -13257,7 +13431,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"supports-color@npm:^5.3.0":
+"supports-color@npm:^5.3.0, supports-color@npm:^5.5.0":
   version: 5.5.0
   resolution: "supports-color@npm:5.5.0"
   dependencies:
@@ -13424,6 +13598,12 @@ resolve@1.1.7:
   checksum: 3/373904ce70524ba11ec7e1905c44fb92671132d5e0b0aba2fb48057161f8bf9cbf7f6178f0adf31810150cf44fb52c7b912dc722bff3fddf9688378596dbeb56
   languageName: node
   linkType: hard
+
+"theme@link:./src/theme::locator=noterity-web-client%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "theme@link:./src/theme::locator=noterity-web-client%40workspace%3A."
+  languageName: node
+  linkType: soft
 
 "throat@npm:^4.0.0":
   version: 4.1.0
@@ -13967,6 +14147,12 @@ typescript@~3.7.2:
   checksum: 3/38ea80312cb42e5e8b4ac562d108d675b2354a79f8f125d363671f692657461b9181fd26f4fc9acdca433f8afee099cb78058806e1303e6b15b8fb022affba94
   languageName: node
   linkType: hard
+
+"views@link:./src/views::locator=noterity-web-client%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "views@link:./src/views::locator=noterity-web-client%40workspace%3A."
+  languageName: node
+  linkType: soft
 
 "vm-browserify@npm:^1.0.1":
   version: 1.1.2
