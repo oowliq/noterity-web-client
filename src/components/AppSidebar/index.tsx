@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Sidebar = styled.aside`
     width: 300px;
@@ -9,7 +10,8 @@ const Sidebar = styled.aside`
     overflow: hidden;
 `;
 
-const HeaderTitle = styled.a`
+const HeaderTitle = styled(Link)`
+    text-decoration: none;
     color: ${(props) => props.theme.fontColors.default};
     font-size: 40px;
     position: relative;
@@ -37,7 +39,8 @@ const SidebarNavList = styled.ul``;
 
 const SidebarNavListItem = styled.li``;
 
-const SidebarNavListItemLink = styled.a`
+const SidebarNavListItemLink = styled(Link)`
+    text-decoration: none;
     font-size: 20px;
     color: ${(props) => props.theme.fontColors.inactive};
     letter-spacing: 4px;
@@ -64,14 +67,14 @@ const SidebarNavListItemLink = styled.a`
 const AppSidebar: FC = () => {
     return (
         <Sidebar>
-            <HeaderTitle>Noterity</HeaderTitle>
+            <HeaderTitle to="/">Noterity</HeaderTitle>
             <SidebarNav>
                 <SidebarNavList>
                     <SidebarNavListItem>
-                        <SidebarNavListItemLink>New Note</SidebarNavListItemLink>
+                        <SidebarNavListItemLink to="/new-note">New Note</SidebarNavListItemLink>
                     </SidebarNavListItem>
                     <SidebarNavListItem>
-                        <SidebarNavListItemLink>Browse notes</SidebarNavListItemLink>
+                        <SidebarNavListItemLink to="/notes">Browse notes</SidebarNavListItemLink>
                     </SidebarNavListItem>
                 </SidebarNavList>
             </SidebarNav>

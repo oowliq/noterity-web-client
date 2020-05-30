@@ -10,3 +10,5 @@ export interface Theme {
         default: string;
     };
 }
+
+export type ThemeColor = 'light' | 'dark';
