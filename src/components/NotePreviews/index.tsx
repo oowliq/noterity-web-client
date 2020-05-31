@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { NotePreviewMini } from 'components';
+import posed, { PoseGroup } from 'react-pose';
 
 interface NotePreviewsProps {
     items: { title: string; color: string }[];
@@ -14,6 +15,7 @@ const Title = styled.span`
     font-size: 20px;
     letter-spacing: 1px;
     margin-left: 1em;
+    display: flex;
 `;
 
 const TitleCount = styled.span`
@@ -53,32 +55,49 @@ const GrayBlock = styled.div`
     }
 `;
 
+const PosedItemWrapper = posed(ItemWrapper)({
+    open: { opacity: 1, y: '0%' },
+    closed: { opacity: 0, y: '100%', delay: 300 },
+});
+
+const PosedTitle = posed(Title)({
+    open: { opacity: 1, y: '0%' },
+    closed: { opacity: 0, y: '-100%', delay: 300 },
+});
+
 const GrayBlockTitle = styled.span`
     font-size: 40px;
     color: ${(props) => props.theme.fontColors.backgroundMain};
 `;
 
 const NotePreviews: FC<NotePreviewsProps> = ({ items }) => {
+    const [open, setOpen] = useState<boolean>(false);
+
+    useEffect((): void => {
+        setOpen(true);
+    }, []);
+
     return (
         <Wrapper>
-            <Title>
+            <PosedTitle pose={open ? 'open' : 'closed'}>
                 Notes
                 <TitleCount>(10)</TitleCount>
-            </Title>
+            </PosedTitle>
             <Items>
                 {items
                     .filter((item, idx) => idx < 5)
                     .map((item) => (
-                        <ItemWrapper>
+                        <PosedItemWrapper pose={open ? 'open' : 'closed'} key={item.title}>
                             <NotePreviewMini color={item.color} title={item.title} />
-                        </ItemWrapper>
+                        </PosedItemWrapper>
                     ))}
+
                 {items.length > 5 && (
-                    <ItemWrapper>
+                    <PosedItemWrapper pose={open ? 'open' : 'closed'}>
                         <GrayBlock>
                             <GrayBlockTitle>{items.length - 5}+</GrayBlockTitle>
                         </GrayBlock>
-                    </ItemWrapper>
+                    </PosedItemWrapper>
                 )}
             </Items>
         </Wrapper>
