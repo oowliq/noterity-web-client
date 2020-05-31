@@ -1,4 +1,5 @@
 export interface Theme {
+    borders?: string;
     colors: {
         accent: string;
         primary: string;

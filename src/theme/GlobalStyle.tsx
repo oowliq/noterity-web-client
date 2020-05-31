@@ -3,6 +3,10 @@ import { createGlobalStyle } from 'styled-components';
 import { Reset } from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
+    * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    }
     html {
         box-sizing: border-box;
         font-family: 'Hammersmith One', sans-serif;

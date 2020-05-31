@@ -1,13 +1,19 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import { Spring } from 'react-spring/renderprops';
 
 const Sidebar = styled.aside`
-    width: 300px;
+    min-width: 300px;
     height: 100vh;
     background: ${(props) => props.theme.colors.secondary};
     padding: 2em;
     overflow: hidden;
+    ${(props) => props.theme.borders};
+`;
+
+const Logo = styled.img`
+    max-height: 150px;
 `;
 
 const HeaderTitle = styled(Link)`
@@ -39,7 +45,7 @@ const SidebarNavList = styled.ul``;
 
 const SidebarNavListItem = styled.li``;
 
-const SidebarNavListItemLink = styled(Link)`
+const SidebarNavListItemLink = styled(NavLink)`
     text-decoration: none;
     font-size: 20px;
     color: ${(props) => props.theme.fontColors.inactive};
@@ -62,6 +68,9 @@ const SidebarNavListItemLink = styled(Link)`
             background: ${(props) => props.theme.colors.accent};
         }
     }
+    &.active {
+        color: ${(props) => props.theme.fontColors.default};
+    }
 `;
 
 const AppSidebar: FC = () => {
@@ -75,6 +84,9 @@ const AppSidebar: FC = () => {
                     </SidebarNavListItem>
                     <SidebarNavListItem>
                         <SidebarNavListItemLink to="/notes">Browse notes</SidebarNavListItemLink>
+                    </SidebarNavListItem>
+                    <SidebarNavListItem>
+                        <SidebarNavListItemLink to="/about">About</SidebarNavListItemLink>
                     </SidebarNavListItem>
                 </SidebarNavList>
             </SidebarNav>

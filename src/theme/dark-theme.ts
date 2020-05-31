@@ -2,7 +2,7 @@ import { Theme } from 'interfaces';
 
 const darkTheme: Theme = {
     colors: {
-        accent: '#f97f51',
+        accent: '#ff3838',
         primary: '#1a1a1a',
         secondary: '#000',
     },

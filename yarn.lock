@@ -1450,7 +1450,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.3":
+"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.3":
   version: 7.10.2
   resolution: "@babel/runtime@npm:7.10.2"
   dependencies:
@@ -2090,6 +2090,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/draft-js@npm:^0.10.40":
+  version: 0.10.40
+  resolution: "@types/draft-js@npm:0.10.40"
+  dependencies:
+    "@types/react": "*"
+    immutable: ~3.7.4
+  checksum: 3/03ae837979379b1e2a40beafaea1ee5dcda52f09677dde338591dc76d8d286a0188d8a85ef2aedcef4777c4f4346e93b491348abaf19c363f1feca7984a9490b
+  languageName: node
+  linkType: hard
+
 "@types/eslint-visitor-keys@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/eslint-visitor-keys@npm:1.0.0"
@@ -2236,6 +2246,17 @@ __metadata:
     hoist-non-react-statics: ^3.3.0
     redux: ^4.0.0
   checksum: 3/061c4ef6af67f05e55d4304429d689a62f98a27e6b7ddebe25bd4d90229b6ae7508cd6d87aecc4c98ac9dccd1c09c8d6bd75ab395d71692f44d0fa0152c2f703
+  languageName: node
+  linkType: hard
+
+"@types/react-router-config@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@types/react-router-config@npm:5.0.1"
+  dependencies:
+    "@types/history": "*"
+    "@types/react": "*"
+    "@types/react-router": "*"
+  checksum: 3/b5254528fa9c32bdbf72ccb2ce297b59c21e77c0cbf42064b69eb589e307ab18a918558a5984941fc94afce638a1f3b5035168bb00be68b2889f3c55471c147c
   languageName: node
   linkType: hard
 
@@ -3069,7 +3090,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"asap@npm:~2.0.6":
+"asap@npm:~2.0.3, asap@npm:~2.0.6":
   version: 2.0.6
   resolution: "asap@npm:2.0.6"
   checksum: 3/3d314f8c598b625a98347bacdba609d4c889c616ca5d8ea65acaae8050ab8b7aa6630df2cfe9856c20b260b432adf2ee7a65a1021f268ef70408c70f809e3a39
@@ -4512,7 +4533,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^2.4.0":
+"core-js@npm:^2.4.0, core-js@npm:^2.4.1":
   version: 2.6.11
   resolution: "core-js@npm:2.6.11"
   checksum: 3/39ad00b46deaecf344470ef940949b58c4b15e71608a98e8ac7429cd16e485b829f9720d44a44b5f4dee966ff04a18baf5283feb8aaba2cb59ce2c25fa72b88c
@@ -5388,6 +5409,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"draft-js@npm:^0.11.5":
+  version: 0.11.5
+  resolution: "draft-js@npm:0.11.5"
+  dependencies:
+    fbjs: ^1.0.0
+    immutable: ~3.7.4
+    object-assign: ^4.1.1
+  peerDependencies:
+    react: ^0.14.0 || ^15.0.0-rc || ^16.0.0-rc || ^16.0.0
+    react-dom: ^0.14.0 || ^15.0.0-rc || ^16.0.0-rc || ^16.0.0
+  checksum: 3/e43c1855e84461ea140a99ffd5d6f6992f1e698a5c65c8aaa2cadb5c6888f7ab8d04718ed0442d96991b9ed12775c74b2f5d856b72f7fe0f9426f764229d20f6
+  languageName: node
+  linkType: hard
+
 "duplexer@npm:^0.1.1":
   version: 0.1.1
   resolution: "duplexer@npm:0.1.1"
@@ -5478,6 +5513,15 @@ __metadata:
   version: 1.0.2
   resolution: "encodeurl@npm:1.0.2"
   checksum: 3/6ee5fcbcd245d2a2b6bd6fe36b80f91e31ab46e29192c50af00e8f860c0c2310ebbdaae40257878fdce90b42abcb3526895c7c3a2e229461ed1f0d0b5a020fc8
+  languageName: node
+  linkType: hard
+
+"encoding@npm:^0.1.11":
+  version: 0.1.12
+  resolution: "encoding@npm:0.1.12"
+  dependencies:
+    iconv-lite: ~0.4.13
+  checksum: 3/d6c664f8bd1807928c6e6bf99fbaecb075c269c722c8ae9b36b4bafd8f5346ad9561eba5871d3b84ba2c40948c8b920f9d80ea82602d72e500f05e0f104a3fb4
   languageName: node
   linkType: hard
 
@@ -6314,6 +6358,29 @@ __metadata:
   dependencies:
     bser: 2.1.1
   checksum: 3/f9ec24592a45026a6a7f54034a4b5efb010cac7d7fbc234fe9ae5d725c13efa9be0ded1ae348473fc42af4e28eea53f8b993857c0c49e6d721f7c9eb5b21217f
+  languageName: node
+  linkType: hard
+
+"fbjs-css-vars@npm:^1.0.0":
+  version: 1.0.2
+  resolution: "fbjs-css-vars@npm:1.0.2"
+  checksum: 3/2f0c717cc2502932102b67d9dbfa75eeed8e5b6a655e12badfac2557907e635337a0a29acca262d0027bef87a8f63b52d0a2b065012eeaee1f0016f749b37b9a
+  languageName: node
+  linkType: hard
+
+"fbjs@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "fbjs@npm:1.0.0"
+  dependencies:
+    core-js: ^2.4.1
+    fbjs-css-vars: ^1.0.0
+    isomorphic-fetch: ^2.1.1
+    loose-envify: ^1.0.0
+    object-assign: ^4.1.0
+    promise: ^7.1.1
+    setimmediate: ^1.0.5
+    ua-parser-js: ^0.7.18
+  checksum: 3/8fbb6828cfb087b08f0ba088c62335dbc73f6da92ecf39bb61c1b045cb730803cb193484bd5e4409d4a78a1d723abbe030b0723c03b598a35fd7165d2ef2f006
   languageName: node
   linkType: hard
 
@@ -7325,7 +7392,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"iconv-lite@npm:0.4.24, iconv-lite@npm:^0.4.24":
+"iconv-lite@npm:0.4.24, iconv-lite@npm:^0.4.24, iconv-lite@npm:~0.4.13":
   version: 0.4.24
   resolution: "iconv-lite@npm:0.4.24"
   dependencies:
@@ -7384,6 +7451,13 @@ fsevents@^1.2.7:
   version: 1.10.0
   resolution: "immer@npm:1.10.0"
   checksum: 3/9cec946ed092e0a9e5c33789e3bdddce2b1831ddb17eaade00be032ea5dcbb157a674e18e3050c84b451023ec9060a6ccc0f92ed54f637733ee410d81d0da8b9
+  languageName: node
+  linkType: hard
+
+"immutable@npm:~3.7.4":
+  version: 3.7.6
+  resolution: "immutable@npm:3.7.6"
+  checksum: 3/33fb106a330bae44cea58a2bc51c667850ea198396f329787718ab9ae70f6302734d0beb81e22de06876e38807f813a81bb09628e096ef89d9b5e06185edd16a
   languageName: node
   linkType: hard
 
@@ -7952,7 +8026,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"is-stream@npm:^1.1.0":
+"is-stream@npm:^1.0.1, is-stream@npm:^1.1.0":
   version: 1.1.0
   resolution: "is-stream@npm:1.1.0"
   checksum: 3/39843ee9ff68ebda05237199f18831eb6e0e28db7799ee9ddaac5573b0681f18b4dc427afdb7b7ad906db545e4648999c42a1810b277acc8451593ff59da00fa
@@ -8048,6 +8122,16 @@ fsevents@^1.2.7:
   version: 3.0.1
   resolution: "isobject@npm:3.0.1"
   checksum: 3/b537a9ccdd8d40ec552fe7ff5db3731f1deb77581adf9beb8ae812f8d08acfa0e74b193159ac50fb01084d7ade06d114077f984e21b8340531241bf85be9a0ab
+  languageName: node
+  linkType: hard
+
+"isomorphic-fetch@npm:^2.1.1":
+  version: 2.2.1
+  resolution: "isomorphic-fetch@npm:2.2.1"
+  dependencies:
+    node-fetch: ^1.0.1
+    whatwg-fetch: ">=0.10.0"
+  checksum: 3/a4174e332ae98fc93269162f1d8a3ee1f7255257d4eaeea5145d4068f64ac2dbff7e7f681889097238e1e009f7a74ba1a23ffd8ed967402777a32cca96204508
   languageName: node
   linkType: hard
 
@@ -9676,6 +9760,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"node-fetch@npm:^1.0.1":
+  version: 1.7.3
+  resolution: "node-fetch@npm:1.7.3"
+  dependencies:
+    encoding: ^0.1.11
+    is-stream: ^1.0.1
+  checksum: 3/d04afb2e328ffb974a5ac4800fe5714d7419243d72f089a6a2383d3b93368c61ae88954a4866c476c0d7f95d7af414c1b9a885e051971061efe4054d526e23ed
+  languageName: node
+  linkType: hard
+
 "node-forge@npm:0.9.0":
   version: 0.9.0
   resolution: "node-forge@npm:0.9.0"
@@ -9842,18 +9936,21 @@ fsevents@^1.2.7:
     "@testing-library/jest-dom": ^4.2.4
     "@testing-library/react": ^9.3.2
     "@testing-library/user-event": ^7.1.2
+    "@types/draft-js": ^0.10.40
     "@types/history": ^4.7.6
     "@types/jest": ^24.0.0
     "@types/node": ^12.0.0
     "@types/react": ^16.9.0
     "@types/react-dom": ^16.9.0
     "@types/react-redux": ^7.1.9
+    "@types/react-router-config": ^5.0.1
     "@types/react-router-dom": ^5.1.5
     "@types/styled-components": ^5.1.0
     "@typescript-eslint/eslint-plugin": ^3.0.2
     "@typescript-eslint/parser": ^3.0.2
     components: "link:./src/components"
     connected-react-router: ^6.8.0
+    draft-js: ^0.11.5
     eslint: ^6.8.0
     eslint-config-airbnb: ^18.1.0
     eslint-config-prettier: ^6.11.0
@@ -9872,8 +9969,10 @@ fsevents@^1.2.7:
     react-is: ^16.13.1
     react-redux: ^7.2.0
     react-router: ^5.2.0
+    react-router-config: ^5.1.1
     react-router-dom: ^5.2.0
     react-scripts: 3.4.1
+    react-spring: ^8.0.27
     redux: ^4.0.5
     redux-actions: ^2.6.5
     redux-devtools-extension: ^2.13.8
@@ -11649,6 +11748,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"promise@npm:^7.1.1":
+  version: 7.3.1
+  resolution: "promise@npm:7.3.1"
+  dependencies:
+    asap: ~2.0.3
+  checksum: 3/23267a4b078fcb02c57b06ca1a1d5739109deb0932c0fd79615a2c5636dd0571ac6a161f19c4ea9683a4ab89791da13112678fa410b65334de490e97c33410ae
+  languageName: node
+  linkType: hard
+
 "promise@npm:^8.0.3":
   version: 8.1.0
   resolution: "promise@npm:8.1.0"
@@ -11668,7 +11776,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
+"prop-types@npm:^15.5.8, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2"
   dependencies:
@@ -11965,6 +12073,18 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-router-config@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "react-router-config@npm:5.1.1"
+  dependencies:
+    "@babel/runtime": ^7.1.2
+  peerDependencies:
+    react: ">=15"
+    react-router: ">=5"
+  checksum: 3/2aca4e345dfcfa16fd166ce8f44119cdd1d9636bb501f44e4769b2f881f08e6ec0cbe75b5dc1739ca0076fa76b67cccc569821d35b99d7c7c6a55229c73b5958
+  languageName: node
+  linkType: hard
+
 "react-router-dom@npm:^5.2.0":
   version: 5.2.0
   resolution: "react-router-dom@npm:5.2.0"
@@ -12070,6 +12190,19 @@ fsevents@^1.2.7:
   bin:
     react-scripts: ./bin/react-scripts.js
   checksum: 3/417fc7cfb3c7b632f8286e02febf2301ae4a4bc25299a9ef8662c777dcaef8de9d7f2320cd7491bf796674fa1de7d86fdb9e9a2852266167e19085dd78b15f79
+  languageName: node
+  linkType: hard
+
+"react-spring@npm:^8.0.27":
+  version: 8.0.27
+  resolution: "react-spring@npm:8.0.27"
+  dependencies:
+    "@babel/runtime": ^7.3.1
+    prop-types: ^15.5.8
+  peerDependencies:
+    react: ">= 16.8.0"
+    react-dom: ">= 16.8.0"
+  checksum: 3/8f041fd3037df9b610deeb5eb12d035ed9188ee0be4d2882b017db6074e7ab66ec9a990506e687274576516557d427a9199497b5559d3409ec38986dba987587
   languageName: node
   linkType: hard
 
@@ -12961,7 +13094,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"setimmediate@npm:^1.0.4":
+"setimmediate@npm:^1.0.4, setimmediate@npm:^1.0.5":
   version: 1.0.5
   resolution: "setimmediate@npm:1.0.5"
   checksum: 3/87884d8add4779fe47ccf763396a5bf875640ae34d80a10802da4de5c25d87647c12f6e7748fd5b8c143b57201caf2a5a781631456c228825f166ca305c12f20
@@ -14260,6 +14393,13 @@ typescript@~3.7.2:
   languageName: node
   linkType: hard
 
+"ua-parser-js@npm:^0.7.18":
+  version: 0.7.21
+  resolution: "ua-parser-js@npm:0.7.21"
+  checksum: 3/5bd2d949e2f0befebf1e7fabde12978ea619e604e1d43a4f165c51543caf9cea5f40512734f224435e248101beffcba1153d38cfb9dc88152f13bf79e9a106ee
+  languageName: node
+  linkType: hard
+
 "unicode-canonical-property-names-ecmascript@npm:^1.0.4":
   version: 1.0.4
   resolution: "unicode-canonical-property-names-ecmascript@npm:1.0.4"
@@ -14789,7 +14929,7 @@ typescript@~3.7.2:
   languageName: node
   linkType: hard
 
-"whatwg-fetch@npm:^3.0.0":
+"whatwg-fetch@npm:>=0.10.0, whatwg-fetch@npm:^3.0.0":
   version: 3.0.0
   resolution: "whatwg-fetch@npm:3.0.0"
   checksum: 3/56ffff2db0908b2180830c1c543b16b3cb93f07c771f15af9ce1a31f426c4b843e0a22cb0afd9de585d7583c07f4b84cb5dbf42fe22bcf6ad34f96103b456aaf
