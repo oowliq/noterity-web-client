@@ -1,1 +1,1 @@
-export * from './NewNote';
+export * from './MainPage';

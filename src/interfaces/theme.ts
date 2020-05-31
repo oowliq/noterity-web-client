@@ -1,14 +1,18 @@
 export interface Theme {
-    borders?: string;
     colors: {
+        background: string;
+        main: string;
+        backgroundAccent: string;
         accent: string;
-        primary: string;
-        secondary: string;
+        green: string;
+        blue: string;
+        orange: string;
     };
     fontColors: {
-        inactive: string;
-        disabled: string;
-        default: string;
+        main: string;
+        backgroundMain: string;
+        description: string;
+        tinted: string;
     };
 }
 

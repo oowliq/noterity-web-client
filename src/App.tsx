@@ -3,12 +3,12 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { Store } from 'redux';
 import { History } from 'history';
-import { darkTheme, lightTheme } from 'theme';
+import { defaultTheme } from 'theme';
 import { ThemeProvider } from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
+import { Root } from 'components';
 import { ApplicationState } from './store';
 import Dashboard from './layouts/Dashboard';
-import Root from './components/Root';
 
 interface AppProps {
     store: Store<ApplicationState>;
@@ -19,7 +19,7 @@ const App: FC<AppProps> = ({ store, history }) => {
     return (
         <Provider store={store}>
             <ConnectedRouter history={history}>
-                <ThemeProvider theme={lightTheme}>
+                <ThemeProvider theme={defaultTheme}>
                     <Root>
                         <Switch>
                             <Route path="/">

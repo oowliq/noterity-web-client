@@ -9,8 +9,8 @@ const GlobalStyle = createGlobalStyle`
     }
     html {
         box-sizing: border-box;
-        font-family: 'Hammersmith One', sans-serif;
-        background: ${(props) => props.theme.colors.primary};
+        font-family: 'Ubuntu', sans-serif;
+        background: ${(props) => props.theme.colors.background};
     }
     *,
     *:before,

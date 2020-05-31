@@ -8,4 +8,4 @@ const Root: FC = ({ children }) => (
     </div>
 );
 
-export default Root;
+export { Root };
