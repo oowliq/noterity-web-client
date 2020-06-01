@@ -4,6 +4,7 @@ import { NotePreviewMini } from 'components';
 import posed, { PoseGroup } from 'react-pose';
 
 interface NotePreviewsProps {
+    allItemsCount: number;
     items: { title: string; color: string }[];
 }
 
@@ -70,7 +71,7 @@ const GrayBlockTitle = styled.span`
     color: ${(props) => props.theme.fontColors.backgroundMain};
 `;
 
-const NotePreviews: FC<NotePreviewsProps> = ({ items }) => {
+const NotePreviews: FC<NotePreviewsProps> = ({ allItemsCount, items }) => {
     const [open, setOpen] = useState<boolean>(false);
 
     useEffect((): void => {
@@ -81,7 +82,7 @@ const NotePreviews: FC<NotePreviewsProps> = ({ items }) => {
         <Wrapper>
             <PosedTitle pose={open ? 'open' : 'closed'}>
                 Notes
-                <TitleCount>(10)</TitleCount>
+                <TitleCount>({allItemsCount.toString()})</TitleCount>
             </PosedTitle>
             <Items>
                 {items
@@ -95,7 +96,7 @@ const NotePreviews: FC<NotePreviewsProps> = ({ items }) => {
                 {items.length > 5 && (
                     <PosedItemWrapper pose={open ? 'open' : 'closed'}>
                         <GrayBlock>
-                            <GrayBlockTitle>{items.length - 5}+</GrayBlockTitle>
+                            <GrayBlockTitle>{allItemsCount - 5}+</GrayBlockTitle>
                         </GrayBlock>
                     </PosedItemWrapper>
                 )}
