@@ -22,6 +22,7 @@
         "react-dom": "^16.13.1",
         "react-icon-base": "^2.1.2",
         "react-is": "^16.13.1",
+        "react-onclickout": "^2.0.8",
         "react-pose": "^4.0.10",
         "react-redux": "^7.2.0",
         "react-router": "^5.2.0",

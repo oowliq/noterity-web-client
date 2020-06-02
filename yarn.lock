@@ -10054,6 +10054,7 @@ fsevents@^1.2.7:
     react-dom: ^16.13.1
     react-icon-base: ^2.1.2
     react-is: ^16.13.1
+    react-onclickout: ^2.0.8
     react-pose: ^4.0.10
     react-redux: ^7.2.0
     react-router: ^5.2.0
@@ -12199,6 +12200,16 @@ fsevents@^1.2.7:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 3/11bcf1267a314a522615f626f3ce3727a3a24cdbf61c4d452add3550a7875326669631326cfb1ba3e92b6f72244c32ffecf93ad21c0cad8455d3e169d0e3f060
+  languageName: node
+  linkType: hard
+
+"react-onclickout@npm:^2.0.8":
+  version: 2.0.8
+  resolution: "react-onclickout@npm:2.0.8"
+  peerDependencies:
+    react: ^15.x || ^16.x
+    react-dom: ^15.x || ^16.x
+  checksum: 3/42e1d05011e47e43c738379b85f84b7dab4d616108a4df64b82ecc5731dcff1816a936fa7346fd1bc2262daff32e75407e51b509bc2b403abdee2275c73e121b
   languageName: node
   linkType: hard
 
