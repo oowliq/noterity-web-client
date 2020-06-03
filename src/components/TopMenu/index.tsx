@@ -2,6 +2,8 @@ import React, { FC, useState } from 'react';
 import styled, { css } from 'styled-components';
 import posed, { PoseGroup } from 'react-pose';
 import ClickOutHandler from 'react-onclickout';
+import { TopMenuItem } from './TopMenuItem';
+import { PlanetIcon, SmileIcon } from 'components/icons';
 
 const TopMenuWrapper = styled.div`
     position: fixed;
@@ -9,16 +11,19 @@ const TopMenuWrapper = styled.div`
     left: 2em;
     background-color: ${(props) => props.theme.colors.backgroundAccent};
     border-radius: 0.9em;
+    overflow: hidden;
+    z-index: 2;
 `;
 
-const ShowButton = styled.button<{ open: boolean }>`
+const ShowButton = posed(styled.button<{ open: boolean }>`
     background: none;
     outline: none;
     border: none;
     width: 40px;
     height: 40px;
-    position: relative;
+    position: absolute;
     transition: all 0.1s ease;
+    z-index: 1;
     &::before {
         transition: all 0.1s ease;
         top: 10px;
@@ -86,11 +91,21 @@ const ShowButton = styled.button<{ open: boolean }>`
                 }
             }
         `}
-`;
+`)({ open: { y: '29px' }, closed: { y: 0 } });
 
 const PosedTopMenuWrapper = posed(TopMenuWrapper)({
     open: { width: '300px', height: '100px' },
     closed: { width: '40px', height: '40px' },
+});
+
+const TopMenuList = posed(styled.div`
+    display: flex;
+    position: absolute;
+    left: 3em;
+    top: 1.5em;
+`)({
+    open: { opacity: 1, y: 0 },
+    closed: { opacity: 0, y: '-200%' },
 });
 
 const TopMenu: FC = () => {
@@ -105,9 +120,17 @@ const TopMenu: FC = () => {
     return (
         <ClickOutHandler onClickOut={handleClose}>
             <PosedTopMenuWrapper pose={open ? 'open' : 'closed'}>
-                <ShowButton open={open} onClick={handleToggle}>
+                <ShowButton open={open} pose={open ? 'open' : 'closed'} onClick={handleToggle}>
                     <span />
                 </ShowButton>
+                <TopMenuList pose={open ? 'open' : 'closed'}>
+                    <TopMenuItem>
+                        <PlanetIcon size={30} color="#894EC7" />
+                    </TopMenuItem>
+                    <TopMenuItem>
+                        <SmileIcon size={30} color="#894EC7" />
+                    </TopMenuItem>
+                </TopMenuList>
             </PosedTopMenuWrapper>
         </ClickOutHandler>
     );

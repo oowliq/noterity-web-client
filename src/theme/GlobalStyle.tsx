@@ -17,7 +17,24 @@ const GlobalStyle = createGlobalStyle`
     *:after {
         box-sizing: inherit;
     }
+    body {
 
+        &::-webkit-scrollbar-track
+        {
+            background-color: #252A41;
+        }
+
+        &::-webkit-scrollbar
+        {
+            width: 3px;
+            background-color: #252A41;
+        }
+
+        &::-webkit-scrollbar-thumb
+        {
+            background-color: #894EC7;
+        }
+    }
 `;
 
 const Style: FC = () => (

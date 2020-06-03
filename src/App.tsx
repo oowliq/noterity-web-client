@@ -5,10 +5,9 @@ import { Store } from 'redux';
 import { History } from 'history';
 import { defaultTheme } from 'theme';
 import { ThemeProvider } from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
 import { Root } from 'components';
+import { Routes } from './Routes';
 import { ApplicationState } from './store';
-import Dashboard from './layouts/Dashboard';
 
 interface AppProps {
     store: Store<ApplicationState>;
@@ -21,11 +20,7 @@ const App: FC<AppProps> = ({ store, history }) => {
             <ConnectedRouter history={history}>
                 <ThemeProvider theme={defaultTheme}>
                     <Root>
-                        <Switch>
-                            <Route path="/">
-                                <Dashboard />
-                            </Route>
-                        </Switch>
+                        <Routes />
                     </Root>
                 </ThemeProvider>
             </ConnectedRouter>

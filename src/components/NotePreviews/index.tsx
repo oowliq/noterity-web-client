@@ -67,7 +67,7 @@ const PosedTitle = posed(Title)({
 });
 
 const GrayBlockTitle = styled.span`
-    font-size: 40px;
+    font-size: 20px;
     color: ${(props) => props.theme.fontColors.backgroundMain};
 `;
 

@@ -1,16 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { SearchNotesField, NotePreviews, TopMenu } from 'components';
-import { AddIcon } from 'components/icons';
+import { SearchNotesField, NotePreviews } from 'components';
 import { media } from 'theme';
-import posed, { PoseGroup } from 'react-pose';
-import { adjustHue } from 'polished';
+import posed from 'react-pose';
+
 const Wrapper = styled.div`
     display: flex;
     width: 100%;
     height: 100vh;
-    overflow: hidden;
-    padding: 0 1em;
     ${media.lessThan('medium')`
        flex-direction: column;
     `}
@@ -40,6 +37,7 @@ const Welcome = styled.div`
        align-items: center;
        justify-content: center;
        flex-direction: column;
+       margin-top: 6em;
     `}
 `;
 
@@ -58,32 +56,6 @@ const WelcomeDescription = styled.p`
 const PosedWelcome = posed(Welcome)({ open: { opacity: 1 }, closed: { opacity: 0, delay: 300 } });
 
 const PosedSearchNotesField = posed.div({ open: { y: 0, opacity: 1 }, closed: { y: '-100%', opacity: 0, delay: 300 } });
-
-const NewNoteButton = styled.button`
-    position: fixed;
-    bottom: 2em;
-    right: 2em;
-    background: none;
-    outline: none;
-    border: none;
-    background-color: ${(props) => props.theme.colors.accent};
-    background: linear-gradient(
-        45deg,
-        ${(props) => props.theme.colors.accent} 0%,
-        ${(props) => adjustHue(30, props.theme.colors.accent)} 100%
-    );
-    border-radius: 1.5em;
-    padding: 1.5em;
-    transition: all 0.1s ease;
-    &:hover {
-        cursor: pointer;
-        transform: scale(1.2);
-    }
-    &:active {
-        cursor: pointer;
-        transform: scale(0.8);
-    }
-`;
 
 const items: { title: string; color: string }[] = [
     {
@@ -112,6 +84,17 @@ const items: { title: string; color: string }[] = [
     },
 ];
 
+const NotePreviewsWrapper = styled.div`
+    ${media.lessThan('medium')`
+       width: 100%;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       flex-direction: column;
+       margin-top: 6em;
+    `}
+`;
+
 const MainPage: FC = () => {
     const [open, setOpen] = useState<boolean>(false);
 
@@ -121,7 +104,6 @@ const MainPage: FC = () => {
 
     return (
         <Wrapper>
-            <TopMenu />
             <LeftSide>
                 <PosedWelcome pose={open ? 'open' : 'closed'}>
                     <WelcomeMessage>Hi, Konstantin</WelcomeMessage>
@@ -132,11 +114,10 @@ const MainPage: FC = () => {
                 </PosedWelcome>
             </LeftSide>
             <RightSide>
-                <NotePreviews items={items} allItemsCount={120} />
+                <NotePreviewsWrapper>
+                    <NotePreviews items={items} allItemsCount={120} />
+                </NotePreviewsWrapper>
             </RightSide>
-            <NewNoteButton>
-                <AddIcon size={20} color="#fff" />
-            </NewNoteButton>
         </Wrapper>
     );
 };
