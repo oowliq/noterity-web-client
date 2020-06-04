@@ -12,6 +12,10 @@ const Block = styled.div`
     &:not(:last-child) {
         margin-right: 1em;
     }
+
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 interface TopMenuItemProps {}

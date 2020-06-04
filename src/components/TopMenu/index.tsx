@@ -2,8 +2,8 @@ import React, { FC, useState } from 'react';
 import styled, { css } from 'styled-components';
 import posed, { PoseGroup } from 'react-pose';
 import ClickOutHandler from 'react-onclickout';
+import { ListIcon, UserIcon } from 'components/icons';
 import { TopMenuItem } from './TopMenuItem';
-import { PlanetIcon, SmileIcon } from 'components/icons';
 
 const TopMenuWrapper = styled.div`
     position: fixed;
@@ -125,10 +125,10 @@ const TopMenu: FC = () => {
                 </ShowButton>
                 <TopMenuList pose={open ? 'open' : 'closed'}>
                     <TopMenuItem>
-                        <PlanetIcon size={30} color="#894EC7" />
+                        <ListIcon size={20} color="#894EC7" />
                     </TopMenuItem>
                     <TopMenuItem>
-                        <SmileIcon size={30} color="#894EC7" />
+                        <UserIcon size={20} color="#894EC7" />
                     </TopMenuItem>
                 </TopMenuList>
             </PosedTopMenuWrapper>
