@@ -10,17 +10,19 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { EditorState, RichUtils } from 'draft-js';
 import { DraftJsButtonProps } from 'draft-js-buttons';
 import { InlineButtonStyle, ItalicButton } from './EditorButtons';
+import { EditorTitle } from './EditorTitle';
+import { defaultTheme, SidebarThemeStyles } from './sidebar-theme';
 
 const EditorWrapper = styled.div`
     width: 100%;
     height: 100%;
+    margin: 2em;
 `;
 
 const EditorStyles = createGlobalStyle`
     .DraftEditor-root {
-        margin-top: 2em;
-        margin-left: 2em;
         font-size: 20px;
+        line-height: 1.5;
     }
     .editor-inline-toolbar {
         position: absolute;
@@ -46,15 +48,19 @@ const EditorStyles = createGlobalStyle`
             fill: ${(props) => props.theme.colors.accent};
         }
     }
+    .editor-sidebar-button {
+        display: none;
+    }
 `;
 
 const inlineToolbarPlugin = createInlineToolbarPlugin({
     theme: {
         toolbarStyles: { toolbar: 'editor-inline-toolbar' },
-        separatorStyles: { separator: 'editor-inline-toolbar-separator' },
     },
 });
-const sideToolbarPlugin = createSideToolbarPlugin();
+const sideToolbarPlugin = createSideToolbarPlugin({
+    theme: defaultTheme,
+});
 const { SideToolbar } = sideToolbarPlugin;
 const { InlineToolbar } = inlineToolbarPlugin;
 const plugins = [inlineToolbarPlugin, sideToolbarPlugin];
@@ -100,6 +106,8 @@ class Editor extends Component<any, ComponentState> {
         return (
             <EditorWrapper>
                 <EditorStyles />
+                <SidebarThemeStyles />
+                <EditorTitle />
                 <DraftEditor
                     editorState={editorState}
                     plugins={plugins}
