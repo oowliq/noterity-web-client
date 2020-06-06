@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { boundMethod } from 'autobind-decorator';
 import DraftEditor from 'draft-js-plugins-editor';
 import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
+import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
+import 'draft-js-side-toolbar-plugin/lib/plugin.css';
 import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
 import 'draft-js/dist/Draft.css';
 import styled, { createGlobalStyle } from 'styled-components';
 import { EditorState, RichUtils } from 'draft-js';
+import { DraftJsButtonProps } from 'draft-js-buttons';
+import { InlineButtonStyle, ItalicButton } from './EditorButtons';
 
 const EditorWrapper = styled.div`
     width: 100%;
@@ -14,22 +18,46 @@ const EditorWrapper = styled.div`
 
 const EditorStyles = createGlobalStyle`
     .DraftEditor-root {
-        width: 100%;
-        height: 100%;
+        margin-top: 2em;
+        margin-left: 2em;
         font-size: 20px;
+    }
+    .editor-inline-toolbar {
+        position: absolute;
+        background-color: ${(props) => props.theme.fontColors.backgroundMain};
+        padding: .5em;
+        border-radius: 5px;
+        box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.12);
+        display: flex;
+    }
+    .editor-inline-toolbar-separator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 6px;
+        background-color: red;
+    }
+    .editor-inline-button {
+        border: none;
+        outline: none;
+        background: none;
+        svg, svg g {
+            fill: ${(props) => props.theme.colors.accent};
+        }
     }
 `;
 
-const ToolbarButton = styled.button`
-    border: none;
-    outline: none;
-    background: none;
-    padding: 1em;
-`;
-
-const inlineToolbarPlugin = createInlineToolbarPlugin();
+const inlineToolbarPlugin = createInlineToolbarPlugin({
+    theme: {
+        toolbarStyles: { toolbar: 'editor-inline-toolbar' },
+        separatorStyles: { separator: 'editor-inline-toolbar-separator' },
+    },
+});
+const sideToolbarPlugin = createSideToolbarPlugin();
+const { SideToolbar } = sideToolbarPlugin;
 const { InlineToolbar } = inlineToolbarPlugin;
-const plugins = [inlineToolbarPlugin];
+const plugins = [inlineToolbarPlugin, sideToolbarPlugin];
 
 interface ComponentState {
     editorState: EditorState;
@@ -81,15 +109,13 @@ class Editor extends Component<any, ComponentState> {
                 <InlineToolbar>
                     {(externalProps) => (
                         <>
-                            <ToolbarButton type="button" onMouseDown={this.handleBold}>
-                                Bold
-                            </ToolbarButton>
-                            <ToolbarButton type="button" onMouseDown={this.handleItalic}>
-                                Italic
-                            </ToolbarButton>
+                            <ItalicButton {...externalProps} theme={{ button: 'editor-inline-button' }} />
+                            <ItalicButton {...externalProps} theme={{ button: 'editor-inline-button' }} />
+                            <ItalicButton {...externalProps} theme={{ button: 'editor-inline-button' }} />
                         </>
                     )}
                 </InlineToolbar>
+                <SideToolbar />
             </EditorWrapper>
         );
     }

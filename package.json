@@ -22,6 +22,7 @@
         "draft-js-buttons": "^2.0.2",
         "draft-js-inline-toolbar-plugin": "^3.0.1",
         "draft-js-plugins-editor": "^3.0.0",
+        "draft-js-side-toolbar-plugin": "^3.0.2",
         "fast-xml-parser": "^3.17.2",
         "history": "^4.10.1",
         "interfaces": "link:./src/interfaces",

@@ -5823,6 +5823,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"draft-js-side-toolbar-plugin@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "draft-js-side-toolbar-plugin@npm:3.0.2"
+  dependencies:
+    draft-js-buttons: ^2.0.1
+    prop-types: ^15.5.8
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^15.5.0 || ^16.0.0-rc
+    react-dom: ^15.5.0 || ^16.0.0-rc
+  checksum: 3/271743427150b1db96d9d9d6f9947969b841a883d6a2b4051d2b4dd54fa6134890e68794b01943f8b69a1f0801b0775b2306ce873e7962cf17802cadbb7d6d41
+  languageName: node
+  linkType: hard
+
 "draft-js@npm:^0.11.5":
   version: 0.11.5
   resolution: "draft-js@npm:0.11.5"
@@ -10647,6 +10661,7 @@ fsevents@^1.2.7:
     draft-js-buttons: ^2.0.2
     draft-js-inline-toolbar-plugin: ^3.0.1
     draft-js-plugins-editor: ^3.0.0
+    draft-js-side-toolbar-plugin: ^3.0.2
     eslint: ^6.8.0
     eslint-config-airbnb: ^18.1.0
     eslint-config-prettier: ^6.11.0
