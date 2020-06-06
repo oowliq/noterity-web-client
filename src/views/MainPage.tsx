@@ -7,14 +7,13 @@ import posed from 'react-pose';
 const Wrapper = styled.div`
     display: flex;
     width: 100%;
-    height: 100vh;
+
     ${media.lessThan('medium')`
        flex-direction: column;
     `}
 `;
 
 const SideDiv = styled.div`
-    height: 100vh;
     width: 50%;
     display: flex;
     align-items: center;
