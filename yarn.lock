@@ -3439,6 +3439,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"autobind-decorator@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "autobind-decorator@npm:2.4.0"
+  checksum: 3/4dc094f74669781d0740ffb9df7c8aad849e7db250b265842b753190868a407c324118f3600d24284fd093c58106d7f5c13568e2a8bd8f24513efb80c2dc1450
+  languageName: node
+  linkType: hard
+
 "autoprefixer@npm:^9.6.1":
   version: 9.8.0
   resolution: "autoprefixer@npm:9.8.0"
@@ -4518,6 +4525,13 @@ __metadata:
     kind-of: ^6.0.2
     shallow-clone: ^3.0.0
   checksum: 3/b0146d66cabc7e609d23d10155dcc88e2f74b03539b3b65f8a05f889500e2a78b6c6265a744445d009d512a1afa16836f62aa5737d462027142984c2d41130c8
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^1.0.4":
+  version: 1.1.1
+  resolution: "clsx@npm:1.1.1"
+  checksum: 3/d8ae10ac0546da19fe8c9516886f6582a64a382cf4d09ea7d36d5287cafbdab1192ab249adc2cdf0310e0b0aeac4f4142cf7c738c98d9cb68c19ba24b6f673d5
   languageName: node
   linkType: hard
 
@@ -5766,6 +5780,46 @@ __metadata:
   version: 8.2.0
   resolution: "dotenv@npm:8.2.0"
   checksum: 3/16cb89cbd7b98b053899b8aba8c5044c8fb61a2db8a81fe70360b75035fce5fed53bd7a34d772be717d0880c0321122a4c09423f518025e1b52d96791521b1a7
+  languageName: node
+  linkType: hard
+
+"draft-js-buttons@npm:^2.0.1, draft-js-buttons@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "draft-js-buttons@npm:2.0.2"
+  dependencies:
+    clsx: ^1.0.4
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^15.5.0 || ^16.0.0-rc
+    react-dom: ^15.5.0 || ^16.0.0-rc
+  checksum: 3/8e9e9d3853d04d8f584ab7f813656dfbe04dcbcb95aad4bb7500dee872541a853cc2cc568c2b57cf827c45e9b3344ed0c1ada3dceed3040b4316541d4e6d25a8
+  languageName: node
+  linkType: hard
+
+"draft-js-inline-toolbar-plugin@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "draft-js-inline-toolbar-plugin@npm:3.0.1"
+  dependencies:
+    draft-js-buttons: ^2.0.1
+  peerDependencies:
+    draft-js: ^0.10.1 || ^0.11.0
+    react: ^15.5.0 || ^16.0.0-rc
+    react-dom: ^15.5.0 || ^16.0.0-rc
+  checksum: 3/2dff143f1b69888fc36e8c65f06e333320d741457f82c61433c9fcd68c8465dfded3ade034d0e66ae822425b1342dc4ae2881ddaf44762a744e66ba5aaea6804
+  languageName: node
+  linkType: hard
+
+"draft-js-plugins-editor@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "draft-js-plugins-editor@npm:3.0.0"
+  dependencies:
+    immutable: ~3.7.4
+    prop-types: ^15.5.8
+  peerDependencies:
+    draft-js: ^0.11.0
+    react: ^15.5.0 || ^16.0.0-rc
+    react-dom: ^15.5.0 || ^16.0.0-rc
+  checksum: 3/bfe1b8f66b3c014d58caf6edd40d454614d1f71ead79d6ce43bea6bae73b3f884e23a8e35944cdf4bd29a127ce3e7b3d3e53bbfcffc01275217fb1259b1d86df
   languageName: node
   linkType: hard
 
@@ -10584,11 +10638,15 @@ fsevents@^1.2.7:
     "@types/styled-components": ^5.1.0
     "@typescript-eslint/eslint-plugin": ^3.0.2
     "@typescript-eslint/parser": ^3.0.2
+    autobind-decorator: ^2.4.0
     cli-ux: ^5.4.6
     colors: ^1.4.0
     components: "link:./src/components"
     connected-react-router: ^6.8.0
     draft-js: ^0.11.5
+    draft-js-buttons: ^2.0.2
+    draft-js-inline-toolbar-plugin: ^3.0.1
+    draft-js-plugins-editor: ^3.0.0
     eslint: ^6.8.0
     eslint-config-airbnb: ^18.1.0
     eslint-config-prettier: ^6.11.0

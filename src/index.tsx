@@ -8,11 +8,6 @@ import * as serviceWorker from './serviceWorker';
 const history = createBrowserHistory();
 const store = configureStore(history);
 
-ReactDOM.render(
-    <React.StrictMode>
-        <App store={store} history={history} />
-    </React.StrictMode>,
-    document.getElementById('root')
-);
+ReactDOM.render(<App store={store} history={history} />, document.getElementById('root'));
 
 serviceWorker.unregister();

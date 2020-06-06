@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { Editor } from 'components';
 
 const Wrapper = styled.div`
     background-color: ${(props) => props.theme.fontColors.backgroundMain};
@@ -12,7 +13,11 @@ const Wrapper = styled.div`
 `;
 
 const NewNote: FC = () => {
-    return <Wrapper>New note</Wrapper>;
+    return (
+        <Wrapper>
+            <Editor />
+        </Wrapper>
+    );
 };
 
 export { NewNote };
