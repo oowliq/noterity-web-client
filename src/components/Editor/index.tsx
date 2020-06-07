@@ -2,14 +2,24 @@ import React, { Component } from 'react';
 import { boundMethod } from 'autobind-decorator';
 import DraftEditor from 'draft-js-plugins-editor';
 import styled from 'styled-components';
-import { EditorState, RichUtils, ContentBlock } from 'draft-js';
+import {
+    EditorState,
+    RichUtils,
+    ContentBlock,
+    getDefaultKeyBinding,
+    KeyBindingUtil,
+    convertToRaw,
+    convertFromRaw,
+} from 'draft-js';
 import { EditorGlobalStyles } from './EditorStyles';
 import { createFirstLineHeader } from './plugins';
+import { EditorHeader } from './EditorHeader';
+
+const { hasCommandModifier } = KeyBindingUtil;
 
 const EditorWrapper = styled.div`
     width: 100%;
     height: 100%;
-    margin: 2em;
 `;
 
 const firstLineHeaderPlugin = createFirstLineHeader();
@@ -35,6 +45,7 @@ const styleMap = {
 
 interface ComponentState {
     editorState: EditorState;
+    lastSave: Date | null;
 }
 
 class Editor extends Component<any, ComponentState> {
@@ -42,8 +53,10 @@ class Editor extends Component<any, ComponentState> {
 
     constructor(props: any) {
         super(props);
+
         this.state = {
-            editorState: EditorState.createEmpty(),
+            editorState: this.loadSavedData(),
+            lastSave: null,
         };
     }
 
@@ -63,18 +76,20 @@ class Editor extends Component<any, ComponentState> {
         }
     }
 
-    @boundMethod private isEnabledInlineStyle(style: string): boolean {
-        const { editorState } = this.state;
-        const inlineStyle = editorState.getCurrentInlineStyle();
-        return inlineStyle.has(style);
-    }
+    // eslint-disable-next-line class-methods-use-this
+    @boundMethod private loadSavedData(): EditorState {
+        const savedData = localStorage.getItem('editor-state');
 
-    @boundMethod private inlineToolbarHandler(style: string, type: 'inline' | 'block'): void {
-        const { editorState } = this.state;
-        if (type === 'inline') this.handleChange(RichUtils.toggleInlineStyle(editorState, style));
-        if (type === 'block') {
-            this.handleChange(RichUtils.toggleBlockType(editorState, style));
+        if (savedData) {
+            const parsed = JSON.parse(savedData);
+            if (parsed) {
+                const content = convertFromRaw(parsed);
+                if (content) {
+                    return EditorState.createWithContent(content);
+                }
+            }
         }
+        return EditorState.createEmpty();
     }
 
     @boundMethod private handleFocus(): void {
@@ -110,6 +125,14 @@ class Editor extends Component<any, ComponentState> {
             });
     }
 
+    // eslint-disable-next-line class-methods-use-this
+    @boundMethod private handleKeys(e: React.KeyboardEvent<HTMLInputElement>): string | null {
+        if (e.keyCode === 83 /* `S` key */ && hasCommandModifier(e)) {
+            return 'editor-save';
+        }
+        return getDefaultKeyBinding(e);
+    }
+
     @boundMethod private handleKeyCommand(command: string, editorState: EditorState) {
         const newState = RichUtils.handleKeyCommand(editorState, command);
 
@@ -119,6 +142,9 @@ class Editor extends Component<any, ComponentState> {
                 break;
             case 'split-block':
                 this.handleNewLine();
+                break;
+            case 'editor-save':
+                this.handleSave();
                 break;
             default:
                 break;
@@ -134,11 +160,18 @@ class Editor extends Component<any, ComponentState> {
         this.setState({ editorState });
     }
 
-    public render() {
+    @boundMethod private handleSave(): void {
         const { editorState } = this.state;
+        this.setState({ lastSave: new Date() });
+        localStorage.setItem('editor-state', JSON.stringify(convertToRaw(editorState.getCurrentContent())));
+    }
+
+    public render() {
+        const { editorState, lastSave } = this.state;
 
         return (
             <EditorWrapper>
+                <EditorHeader editorState={editorState} lastSave={lastSave} onSave={this.handleSave} />
                 <EditorGlobalStyles />
                 <DraftEditor
                     editorState={editorState}
@@ -146,6 +179,7 @@ class Editor extends Component<any, ComponentState> {
                     blockStyleFn={this.getBlockStyle}
                     onChange={this.handleChange}
                     handleKeyCommand={this.handleKeyCommand}
+                    keyBindingFn={this.handleKeys}
                     customStyleMap={styleMap}
                     ref={(element) => {
                         this.editor = element;

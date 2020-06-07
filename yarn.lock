@@ -10335,6 +10335,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"moment@npm:^2.26.0":
+  version: 2.26.0
+  resolution: "moment@npm:2.26.0"
+  checksum: 3/67bf24cd08c7aa392981f37ce1802214bc39f0f269cb77d9c7b50d9548e936fd23eacab55615882aea13736dfdb89880f2ac998400962253991e9cb0e54e8d71
+  languageName: node
+  linkType: hard
+
 "move-concurrently@npm:^1.0.1":
   version: 1.0.1
   resolution: "move-concurrently@npm:1.0.1"
@@ -10695,6 +10702,7 @@ fsevents@^1.2.7:
     immutable: ^4.0.0-rc.12
     interfaces: "link:./src/interfaces"
     layouts: "link:./src/layouts"
+    moment: ^2.26.0
     polished: ^3.6.4
     prettier: ^2.0.5
     prop-types: ^15.7.2
@@ -10710,6 +10718,7 @@ fsevents@^1.2.7:
     react-router-dom: ^5.2.0
     react-scripts: 3.4.1
     react-spring: ^8.0.27
+    reading-time: ^1.2.0
     redux: ^4.0.5
     redux-actions: ^2.6.5
     redux-devtools-extension: ^2.13.8
@@ -13180,6 +13189,13 @@ fsevents@^1.2.7:
   dependencies:
     picomatch: ^2.2.1
   checksum: 3/0159f43eb0a90cf4fde5989b607e0a6bef4e6332dc8648f1b50fbc013f1158e1d021bcfd6dad1dc2895da2bb14cdac408239d047e3d61a01dd3a44376e6ec1f1
+  languageName: node
+  linkType: hard
+
+"reading-time@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "reading-time@npm:1.2.0"
+  checksum: 3/411ff81920c1c6841bd2542276a4ed5c529d2b0ab182cedf072eb768f1ac4acd3c50b6adc9572ac9540e6109bb9e5a004a553b510b15a70748f87047d2788ccf
   languageName: node
   linkType: hard
 

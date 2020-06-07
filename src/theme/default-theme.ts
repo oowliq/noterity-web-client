@@ -6,9 +6,9 @@ const defaultTheme: Theme = {
         backgroundAccent: '#3B3F54',
         main: '#FFFFFF',
         accent: '#894EC7',
-        green: '#E0F5F5',
+        green: '#93dcdc',
         blue: '#E4EFFE',
-        orange: '#FDEEE8',
+        orange: '#f5a98a',
     },
     fontColors: {
         main: '#262A3F',
