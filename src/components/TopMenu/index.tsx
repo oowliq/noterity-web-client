@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled, { css } from 'styled-components';
-import posed, { PoseGroup } from 'react-pose';
+import posed from 'react-pose';
 import ClickOutHandler from 'react-onclickout';
 import { ListIcon, UserIcon } from 'components/icons';
 import { TopMenuItem } from './TopMenuItem';

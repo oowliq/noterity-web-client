@@ -5,8 +5,8 @@ import styled, { css } from 'styled-components';
 enum inlineStyles {
     italic = 'I',
     bold = 'B',
-    title = 'TITLE',
-    subTitle = 'SUBTITLE',
+    title = 'header-one',
+    subTitle = 'blockquote',
 }
 
 const InlineToolbarButton = styled.button<{ enabled: boolean }>`
@@ -35,11 +35,11 @@ const InlineToolbarButton = styled.button<{ enabled: boolean }>`
 
 interface InlineToolbarButtonProps {
     toggled: (style: string) => boolean;
-    onToggle: (style: string) => void;
+    onToggle: (style: string, type: 'inline' | 'block') => void;
 }
 
 const ItalicButton: FC<InlineToolbarButtonProps> = ({ toggled, onToggle }) => {
-    const handleKeyDown = (): void => onToggle(inlineStyles.italic);
+    const handleKeyDown = (): void => onToggle(inlineStyles.italic, 'inline');
 
     return (
         <InlineToolbarButton enabled={toggled(inlineStyles.italic)} onMouseDown={handleKeyDown}>
@@ -49,7 +49,7 @@ const ItalicButton: FC<InlineToolbarButtonProps> = ({ toggled, onToggle }) => {
 };
 
 const BoldButton: FC<InlineToolbarButtonProps> = ({ toggled, onToggle }) => {
-    const handleKeyDown = (): void => onToggle(inlineStyles.bold);
+    const handleKeyDown = (): void => onToggle(inlineStyles.bold, 'inline');
 
     return (
         <InlineToolbarButton enabled={toggled(inlineStyles.bold)} onMouseDown={handleKeyDown}>
@@ -59,7 +59,7 @@ const BoldButton: FC<InlineToolbarButtonProps> = ({ toggled, onToggle }) => {
 };
 
 const TitleButton: FC<InlineToolbarButtonProps> = ({ toggled, onToggle }) => {
-    const handleKeyDown = (): void => onToggle(inlineStyles.title);
+    const handleKeyDown = (): void => onToggle(inlineStyles.title, 'block');
 
     return (
         <InlineToolbarButton enabled={toggled(inlineStyles.title)} onMouseDown={handleKeyDown}>
@@ -69,7 +69,7 @@ const TitleButton: FC<InlineToolbarButtonProps> = ({ toggled, onToggle }) => {
 };
 
 const SubTitleButton: FC<InlineToolbarButtonProps> = ({ toggled, onToggle }) => {
-    const handleKeyDown = (): void => onToggle(inlineStyles.subTitle);
+    const handleKeyDown = (): void => onToggle(inlineStyles.subTitle, 'block');
 
     return (
         <InlineToolbarButton enabled={toggled(inlineStyles.subTitle)} onMouseDown={handleKeyDown}>

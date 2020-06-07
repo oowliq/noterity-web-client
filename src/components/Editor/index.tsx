@@ -3,56 +3,16 @@ import { boundMethod } from 'autobind-decorator';
 import DraftEditor from 'draft-js-plugins-editor';
 import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
 import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
-import 'draft-js-side-toolbar-plugin/lib/plugin.css';
-import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
-import 'draft-js/dist/Draft.css';
-import * as utils from 'draftjs-utils';
-import styled, { createGlobalStyle } from 'styled-components';
-import { EditorState, RichUtils, DraftInlineStyle } from 'draft-js';
+import styled from 'styled-components';
+import { EditorState, RichUtils, ContentBlock } from 'draft-js';
 import { ItalicButton, BoldButton, TitleButton, SubTitleButton } from './EditorButtons';
-import { EditorTitle } from './EditorTitle';
-import { defaultTheme, SidebarThemeStyles } from './sidebar-theme';
+import { sidebarTheme, EditorGlobalStyles } from './EditorStyles';
+import { createFirstLineHeader } from './plugins';
 
 const EditorWrapper = styled.div`
     width: 100%;
     height: 100%;
     margin: 2em;
-`;
-
-const EditorStyles = createGlobalStyle`
-    .DraftEditor-root {
-        font-size: 20px;
-        line-height: 1.5;
-    }
-    .editor-inline-toolbar {
-        position: absolute;
-        background-color: ${(props) => props.theme.fontColors.backgroundMain};
-        padding: .5em;
-        border-radius: 5px;
-        box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.12);
-        display: flex;
-        background-color: #fff;
-        z-index: 1;
-    }
-    .editor-inline-toolbar-separator {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 5px;
-        height: 6px;
-        background-color: red;
-    }
-    .editor-inline-button {
-        border: none;
-        outline: none;
-        background: none;
-        svg, svg g {
-            fill: ${(props) => props.theme.colors.accent};
-        }
-    }
-    .editor-sidebar-button {
-        display: none;
-    }
 `;
 
 const inlineToolbarPlugin = createInlineToolbarPlugin({
@@ -61,11 +21,16 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
     },
 });
 const sideToolbarPlugin = createSideToolbarPlugin({
-    theme: defaultTheme,
+    theme: sidebarTheme,
 });
+
+const firstLineHeaderPlugin = createFirstLineHeader();
+
 const { SideToolbar } = sideToolbarPlugin;
 const { InlineToolbar } = inlineToolbarPlugin;
-const plugins = [inlineToolbarPlugin, sideToolbarPlugin];
+const plugins = [inlineToolbarPlugin, sideToolbarPlugin, firstLineHeaderPlugin];
+
+const rs = ['B'];
 
 const styleMap = {
     B: {
@@ -76,6 +41,7 @@ const styleMap = {
     },
     TITLE: {
         fontSize: '40px',
+        display: 'block',
     },
     SUBTITLE: {
         fontSize: '25px',
@@ -107,15 +73,30 @@ class Editor extends Component<any, ComponentState> {
         return editorState.getCurrentContent().getPlainText().length;
     }
 
+    // eslint-disable-next-line class-methods-use-this
+    @boundMethod private getBlockStyle(block: ContentBlock): string {
+        switch (block.getType()) {
+            case 'blockquote':
+                return 'RichEditor-blockquote';
+            case 'note-title':
+                return 'RichEditor-note-title';
+            default:
+                return '';
+        }
+    }
+
     @boundMethod private isEnabledInlineStyle(style: string): boolean {
         const { editorState } = this.state;
         const inlineStyle = editorState.getCurrentInlineStyle();
         return inlineStyle.has(style);
     }
 
-    @boundMethod private inlineToolbarHandler(style: string): void {
+    @boundMethod private inlineToolbarHandler(style: string, type: 'inline' | 'block'): void {
         const { editorState } = this.state;
-        this.handleChange(RichUtils.toggleInlineStyle(editorState, style));
+        if (type === 'inline') this.handleChange(RichUtils.toggleInlineStyle(editorState, style));
+        if (type === 'block') {
+            this.handleChange(RichUtils.toggleBlockType(editorState, style));
+        }
     }
 
     @boundMethod private handleFocus(): void {
@@ -130,12 +111,28 @@ class Editor extends Component<any, ComponentState> {
         }, 100);
     }
 
+    @boundMethod private handleNewLine(): void {
+        if (window.requestAnimationFrame)
+            window.requestAnimationFrame(() => {
+                const { editorState } = this.state;
+                const styles = editorState.getCurrentInlineStyle().toArray();
+                styles.forEach((style) => {
+                    if (rs.includes(style)) {
+                        this.handleChange(RichUtils.toggleInlineStyle(editorState, style));
+                    }
+                });
+            });
+    }
+
     @boundMethod private handleKeyCommand(command: string, editorState: EditorState) {
         const newState = RichUtils.handleKeyCommand(editorState, command);
 
         switch (command) {
             case 'backspace':
                 this.handleFocusOnTtile();
+                break;
+            case 'split-block':
+                this.handleNewLine();
                 break;
             default:
                 break;
@@ -156,17 +153,11 @@ class Editor extends Component<any, ComponentState> {
 
         return (
             <EditorWrapper>
-                <EditorStyles />
-                <SidebarThemeStyles />
-                <EditorTitle
-                    onInit={(title) => {
-                        this.title = title;
-                    }}
-                    onEnter={this.handleFocus}
-                />
+                <EditorGlobalStyles />
                 <DraftEditor
                     editorState={editorState}
                     plugins={plugins}
+                    blockStyleFn={this.getBlockStyle}
                     onChange={this.handleChange}
                     handleKeyCommand={this.handleKeyCommand}
                     customStyleMap={styleMap}
