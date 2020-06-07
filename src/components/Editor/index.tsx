@@ -6,9 +6,10 @@ import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
 import 'draft-js-side-toolbar-plugin/lib/plugin.css';
 import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
 import 'draft-js/dist/Draft.css';
+import * as utils from 'draftjs-utils';
 import styled, { createGlobalStyle } from 'styled-components';
-import { EditorState, RichUtils } from 'draft-js';
-import { ItalicButton } from './EditorButtons';
+import { EditorState, RichUtils, DraftInlineStyle } from 'draft-js';
+import { ItalicButton, BoldButton, TitleButton, SubTitleButton } from './EditorButtons';
 import { EditorTitle } from './EditorTitle';
 import { defaultTheme, SidebarThemeStyles } from './sidebar-theme';
 
@@ -30,6 +31,8 @@ const EditorStyles = createGlobalStyle`
         border-radius: 5px;
         box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.12);
         display: flex;
+        background-color: #fff;
+        z-index: 1;
     }
     .editor-inline-toolbar-separator {
         position: absolute;
@@ -64,6 +67,21 @@ const { SideToolbar } = sideToolbarPlugin;
 const { InlineToolbar } = inlineToolbarPlugin;
 const plugins = [inlineToolbarPlugin, sideToolbarPlugin];
 
+const styleMap = {
+    B: {
+        fontWeight: 600,
+    },
+    I: {
+        fontStyle: 'italic',
+    },
+    TITLE: {
+        fontSize: '40px',
+    },
+    SUBTITLE: {
+        fontSize: '25px',
+    },
+};
+
 interface ComponentState {
     editorState: EditorState;
 }
@@ -87,6 +105,17 @@ class Editor extends Component<any, ComponentState> {
     private get editorLength(): number {
         const { editorState } = this.state;
         return editorState.getCurrentContent().getPlainText().length;
+    }
+
+    @boundMethod private isEnabledInlineStyle(style: string): boolean {
+        const { editorState } = this.state;
+        const inlineStyle = editorState.getCurrentInlineStyle();
+        return inlineStyle.has(style);
+    }
+
+    @boundMethod private inlineToolbarHandler(style: string): void {
+        const { editorState } = this.state;
+        this.handleChange(RichUtils.toggleInlineStyle(editorState, style));
     }
 
     @boundMethod private handleFocus(): void {
@@ -122,15 +151,6 @@ class Editor extends Component<any, ComponentState> {
         this.setState({ editorState });
     }
 
-    @boundMethod private handleBold(): void {
-        const { editorState } = this.state;
-    }
-
-    @boundMethod private handleItalic(): void {
-        const { editorState } = this.state;
-        this.handleChange(RichUtils.toggleBlockType(editorState, 'ITALIC'));
-    }
-
     public render() {
         const { editorState } = this.state;
 
@@ -149,6 +169,7 @@ class Editor extends Component<any, ComponentState> {
                     plugins={plugins}
                     onChange={this.handleChange}
                     handleKeyCommand={this.handleKeyCommand}
+                    customStyleMap={styleMap}
                     ref={(element) => {
                         this.editor = element;
                     }}
@@ -156,12 +177,10 @@ class Editor extends Component<any, ComponentState> {
                 <InlineToolbar>
                     {(externalProps) => (
                         <>
-                            <button type="button" onMouseDown={this.handleBold}>
-                                1
-                            </button>
-                            <ItalicButton {...externalProps} theme={{ button: 'editor-inline-button' }} />
-                            <ItalicButton {...externalProps} theme={{ button: 'editor-inline-button' }} />
-                            <ItalicButton {...externalProps} theme={{ button: 'editor-inline-button' }} />
+                            <ItalicButton toggled={this.isEnabledInlineStyle} onToggle={this.inlineToolbarHandler} />
+                            <BoldButton toggled={this.isEnabledInlineStyle} onToggle={this.inlineToolbarHandler} />
+                            <TitleButton toggled={this.isEnabledInlineStyle} onToggle={this.inlineToolbarHandler} />
+                            <SubTitleButton toggled={this.isEnabledInlineStyle} onToggle={this.inlineToolbarHandler} />
                         </>
                     )}
                 </InlineToolbar>

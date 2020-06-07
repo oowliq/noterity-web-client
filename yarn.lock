@@ -5851,6 +5851,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"draftjs-utils@npm:^0.10.2":
+  version: 0.10.2
+  resolution: "draftjs-utils@npm:0.10.2"
+  peerDependencies:
+    draft-js: ^0.11.x
+    immutable: 3.x.x || 4.x.x
+  checksum: 3/2e149f92e86e09d76f2fafe609dbd320028d362573f4b8965e67041be978c06c1f110eb7e337c26fe9496cb6181ba8a63a18d156829c95138fe972f8435911e0
+  languageName: node
+  linkType: hard
+
 "duplexer@npm:^0.1.1":
   version: 0.1.1
   resolution: "duplexer@npm:0.1.1"
@@ -8079,6 +8089,13 @@ fsevents@^1.2.7:
   version: 1.10.0
   resolution: "immer@npm:1.10.0"
   checksum: 3/9cec946ed092e0a9e5c33789e3bdddce2b1831ddb17eaade00be032ea5dcbb157a674e18e3050c84b451023ec9060a6ccc0f92ed54f637733ee410d81d0da8b9
+  languageName: node
+  linkType: hard
+
+"immutable@npm:^4.0.0-rc.12":
+  version: 4.0.0-rc.12
+  resolution: "immutable@npm:4.0.0-rc.12"
+  checksum: 3/8510ebe1cf9ce47b913bc17a72d9fc5cbbe5a121fdd63ac33693e5e47aef27bb3b3e31ca77d6f4928b6a80c41cfcc08f6f928bc1bd06448a1b6df11ee1781c0b
   languageName: node
   linkType: hard
 
@@ -10662,6 +10679,7 @@ fsevents@^1.2.7:
     draft-js-inline-toolbar-plugin: ^3.0.1
     draft-js-plugins-editor: ^3.0.0
     draft-js-side-toolbar-plugin: ^3.0.2
+    draftjs-utils: ^0.10.2
     eslint: ^6.8.0
     eslint-config-airbnb: ^18.1.0
     eslint-config-prettier: ^6.11.0
@@ -10674,6 +10692,7 @@ fsevents@^1.2.7:
     fast-xml-parser: ^3.17.2
     globby: ^11
     history: ^4.10.1
+    immutable: ^4.0.0-rc.12
     interfaces: "link:./src/interfaces"
     layouts: "link:./src/layouts"
     polished: ^3.6.4
