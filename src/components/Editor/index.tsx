@@ -8,6 +8,8 @@ import { EditorState, RichUtils, ContentBlock } from 'draft-js';
 import { ItalicButton, BoldButton, TitleButton, SubTitleButton } from './EditorButtons';
 import { sidebarTheme, EditorGlobalStyles } from './EditorStyles';
 import { createFirstLineHeader } from './plugins';
+import { getDefaultKeyBinding, KeyBindingUtil } from 'draft-js';
+const { hasCommandModifier } = KeyBindingUtil;
 
 const EditorWrapper = styled.div`
     width: 100%;
@@ -104,11 +106,19 @@ class Editor extends Component<any, ComponentState> {
     }
 
     @boundMethod private handleFocusOnTtile(): void {
-        if (this.editorLength) return;
-
-        setTimeout(() => {
-            if (this.title) this.title.focus();
-        }, 100);
+        if (window.requestAnimationFrame)
+            window.requestAnimationFrame(() => {
+                const { editorState } = this.state;
+                const currentContent = editorState.getCurrentContent();
+                const firstBlockKey = currentContent.getBlockMap().first().getKey();
+                const currentBlockKey = editorState.getSelection().getAnchorKey();
+                const isFirstBlock = currentBlockKey === firstBlockKey;
+                const currentBlockType = RichUtils.getCurrentBlockType(editorState);
+                const isHeading = currentBlockType === 'note-title';
+                if (isFirstBlock !== isHeading) {
+                    this.handleChange(RichUtils.toggleBlockType(editorState, 'note-title'));
+                }
+            });
     }
 
     @boundMethod private handleNewLine(): void {
@@ -148,6 +158,11 @@ class Editor extends Component<any, ComponentState> {
         this.setState({ editorState });
     }
 
+    @boundMethod private myKeyBindingFn(e: React.KeyboardEvent<HTMLInputElement>): string | null {
+        if (e.key === 'backspace') return 'ddd';
+        return getDefaultKeyBinding(e);
+    }
+
     public render() {
         const { editorState } = this.state;
 
@@ -158,6 +173,7 @@ class Editor extends Component<any, ComponentState> {
                     editorState={editorState}
                     plugins={plugins}
                     blockStyleFn={this.getBlockStyle}
+                    keyBindingFn={this.myKeyBindingFn}
                     onChange={this.handleChange}
                     handleKeyCommand={this.handleKeyCommand}
                     customStyleMap={styleMap}
@@ -165,17 +181,6 @@ class Editor extends Component<any, ComponentState> {
                         this.editor = element;
                     }}
                 />
-                <InlineToolbar>
-                    {(externalProps) => (
-                        <>
-                            <ItalicButton toggled={this.isEnabledInlineStyle} onToggle={this.inlineToolbarHandler} />
-                            <BoldButton toggled={this.isEnabledInlineStyle} onToggle={this.inlineToolbarHandler} />
-                            <TitleButton toggled={this.isEnabledInlineStyle} onToggle={this.inlineToolbarHandler} />
-                            <SubTitleButton toggled={this.isEnabledInlineStyle} onToggle={this.inlineToolbarHandler} />
-                        </>
-                    )}
-                </InlineToolbar>
-                <SideToolbar />
             </EditorWrapper>
         );
     }

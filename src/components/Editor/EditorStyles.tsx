@@ -13,8 +13,22 @@ const EditorStyles = createGlobalStyle`
         font-size: 40px;
     }
     .RichEditor-note-title {
-        font-weight: 600;
+        font-weight: 300;
         font-size: 35px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        position: relative;
+        margin-bottom: 1em;
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            width: 100%;
+            background-color: ${(props) => props.theme.fontColors.tinted};
+        }
     }
     .editor-inline-toolbar {
         position: absolute;
