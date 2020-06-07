@@ -19,6 +19,7 @@ const EditorStyles = createGlobalStyle`
         text-transform: uppercase;
         position: relative;
         margin-bottom: 1em;
+
         &::after {
             content: "";
             position: absolute;

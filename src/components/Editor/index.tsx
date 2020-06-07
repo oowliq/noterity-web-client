@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { boundMethod } from 'autobind-decorator';
 import DraftEditor from 'draft-js-plugins-editor';
-import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
-import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
 import styled from 'styled-components';
 import { EditorState, RichUtils, ContentBlock } from 'draft-js';
-import { ItalicButton, BoldButton, TitleButton, SubTitleButton } from './EditorButtons';
-import { sidebarTheme, EditorGlobalStyles } from './EditorStyles';
+import { EditorGlobalStyles } from './EditorStyles';
 import { createFirstLineHeader } from './plugins';
-import { getDefaultKeyBinding, KeyBindingUtil } from 'draft-js';
-const { hasCommandModifier } = KeyBindingUtil;
 
 const EditorWrapper = styled.div`
     width: 100%;
@@ -17,20 +12,8 @@ const EditorWrapper = styled.div`
     margin: 2em;
 `;
 
-const inlineToolbarPlugin = createInlineToolbarPlugin({
-    theme: {
-        toolbarStyles: { toolbar: 'editor-inline-toolbar' },
-    },
-});
-const sideToolbarPlugin = createSideToolbarPlugin({
-    theme: sidebarTheme,
-});
-
 const firstLineHeaderPlugin = createFirstLineHeader();
-
-const { SideToolbar } = sideToolbarPlugin;
-const { InlineToolbar } = inlineToolbarPlugin;
-const plugins = [inlineToolbarPlugin, sideToolbarPlugin, firstLineHeaderPlugin];
+const plugins = [firstLineHeaderPlugin];
 
 const rs = ['B'];
 
@@ -57,8 +40,6 @@ interface ComponentState {
 class Editor extends Component<any, ComponentState> {
     private editor: DraftEditor | null = null;
 
-    private title: HTMLInputElement | null = null;
-
     constructor(props: any) {
         super(props);
         this.state = {
@@ -68,11 +49,6 @@ class Editor extends Component<any, ComponentState> {
 
     public componentDidMount(): void {
         this.handleFocus();
-    }
-
-    private get editorLength(): number {
-        const { editorState } = this.state;
-        return editorState.getCurrentContent().getPlainText().length;
     }
 
     // eslint-disable-next-line class-methods-use-this
@@ -158,11 +134,6 @@ class Editor extends Component<any, ComponentState> {
         this.setState({ editorState });
     }
 
-    @boundMethod private myKeyBindingFn(e: React.KeyboardEvent<HTMLInputElement>): string | null {
-        if (e.key === 'backspace') return 'ddd';
-        return getDefaultKeyBinding(e);
-    }
-
     public render() {
         const { editorState } = this.state;
 
@@ -173,7 +144,6 @@ class Editor extends Component<any, ComponentState> {
                     editorState={editorState}
                     plugins={plugins}
                     blockStyleFn={this.getBlockStyle}
-                    keyBindingFn={this.myKeyBindingFn}
                     onChange={this.handleChange}
                     handleKeyCommand={this.handleKeyCommand}
                     customStyleMap={styleMap}
