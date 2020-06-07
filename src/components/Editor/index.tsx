@@ -8,8 +8,7 @@ import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
 import 'draft-js/dist/Draft.css';
 import styled, { createGlobalStyle } from 'styled-components';
 import { EditorState, RichUtils } from 'draft-js';
-import { DraftJsButtonProps } from 'draft-js-buttons';
-import { InlineButtonStyle, ItalicButton } from './EditorButtons';
+import { ItalicButton } from './EditorButtons';
 import { EditorTitle } from './EditorTitle';
 import { defaultTheme, SidebarThemeStyles } from './sidebar-theme';
 
@@ -70,6 +69,10 @@ interface ComponentState {
 }
 
 class Editor extends Component<any, ComponentState> {
+    private editor: DraftEditor | null = null;
+
+    private title: HTMLInputElement | null = null;
+
     constructor(props: any) {
         super(props);
         this.state = {
@@ -77,8 +80,37 @@ class Editor extends Component<any, ComponentState> {
         };
     }
 
+    public componentDidMount(): void {
+        this.handleFocus();
+    }
+
+    private get editorLength(): number {
+        const { editorState } = this.state;
+        return editorState.getCurrentContent().getPlainText().length;
+    }
+
+    @boundMethod private handleFocus(): void {
+        if (this.editor) this.editor.focus();
+    }
+
+    @boundMethod private handleFocusOnTtile(): void {
+        if (this.editorLength) return;
+
+        setTimeout(() => {
+            if (this.title) this.title.focus();
+        }, 100);
+    }
+
     @boundMethod private handleKeyCommand(command: string, editorState: EditorState) {
         const newState = RichUtils.handleKeyCommand(editorState, command);
+
+        switch (command) {
+            case 'backspace':
+                this.handleFocusOnTtile();
+                break;
+            default:
+                break;
+        }
         if (newState) {
             this.handleChange(newState);
             return 'handled';
@@ -92,12 +124,11 @@ class Editor extends Component<any, ComponentState> {
 
     @boundMethod private handleBold(): void {
         const { editorState } = this.state;
-        this.handleChange(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
     }
 
     @boundMethod private handleItalic(): void {
         const { editorState } = this.state;
-        this.handleChange(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
+        this.handleChange(RichUtils.toggleBlockType(editorState, 'ITALIC'));
     }
 
     public render() {
@@ -107,16 +138,27 @@ class Editor extends Component<any, ComponentState> {
             <EditorWrapper>
                 <EditorStyles />
                 <SidebarThemeStyles />
-                <EditorTitle />
+                <EditorTitle
+                    onInit={(title) => {
+                        this.title = title;
+                    }}
+                    onEnter={this.handleFocus}
+                />
                 <DraftEditor
                     editorState={editorState}
                     plugins={plugins}
                     onChange={this.handleChange}
                     handleKeyCommand={this.handleKeyCommand}
+                    ref={(element) => {
+                        this.editor = element;
+                    }}
                 />
                 <InlineToolbar>
                     {(externalProps) => (
                         <>
+                            <button type="button" onMouseDown={this.handleBold}>
+                                1
+                            </button>
                             <ItalicButton {...externalProps} theme={{ button: 'editor-inline-button' }} />
                             <ItalicButton {...externalProps} theme={{ button: 'editor-inline-button' }} />
                             <ItalicButton {...externalProps} theme={{ button: 'editor-inline-button' }} />

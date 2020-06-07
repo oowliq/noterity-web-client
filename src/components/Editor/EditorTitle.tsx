@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useRef, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 
 const TitleWrapper = styled.div<{ content: boolean }>`
@@ -36,16 +36,37 @@ const TitleField = styled.input`
     }
 `;
 
-const EditorTitle: FC = () => {
+interface EditorTitleProps {
+    onInit: (ref: HTMLInputElement | null) => void;
+    onEnter: () => void;
+}
+
+const EditorTitle: FC<EditorTitleProps> = ({ onInit, onEnter }) => {
     const [value, setValue] = useState<string>('');
+
+    const title = useRef<HTMLInputElement>(null);
+
+    useEffect((): void => {
+        onInit(title.current);
+    }, [title]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setValue(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1));
     };
 
+    const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+        if (e.key === 'Enter') onEnter();
+    };
+
     return (
-        <TitleWrapper content={value.length}>
-            <TitleField placeholder="Note title" value={value} onChange={handleChange} />
+        <TitleWrapper content={!!value.length}>
+            <TitleField
+                placeholder="Note title"
+                value={value}
+                ref={title}
+                onKeyDown={handleEnter}
+                onChange={handleChange}
+            />
         </TitleWrapper>
     );
 };
