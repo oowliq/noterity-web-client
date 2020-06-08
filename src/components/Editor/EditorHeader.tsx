@@ -1,10 +1,9 @@
 import React, { FC, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
-import { EditorState, RichUtils } from 'draft-js';
+import { EditorState } from 'draft-js';
 import moment from 'moment';
 import readingTime from 'reading-time';
-import posed from 'react-pose';
 
 interface EditorHeaderProps {
     editorState: EditorState;
@@ -82,7 +81,7 @@ const EditorHeader: FC<EditorHeaderProps> = ({ editorState, lastSave, onSave }) 
                 {newContent && <SaveButton onClick={onSave}>Save</SaveButton>}
                 {!newContent && <LastSaveTitle>{lastSaveTitle}</LastSaveTitle>}
             </SaveWrapper>
-            <WordsCounter>{textReadingTime.text}</WordsCounter>
+            {!!textReadingTime.time && <WordsCounter>{textReadingTime.text}</WordsCounter>}
         </Header>
     );
 };

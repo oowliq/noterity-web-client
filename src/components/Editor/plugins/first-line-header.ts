@@ -1,8 +1,7 @@
 // Import and add to your Editor's plugins
 
 import { RichUtils, EditorState } from 'draft-js';
-
-const HEADING = 'note-title';
+import { blocks } from '../style-schema';
 
 const createFirstLineHeader = () => ({
     onChange: (editorState: EditorState) => {
@@ -11,9 +10,9 @@ const createFirstLineHeader = () => ({
         const currentBlockKey = editorState.getSelection().getAnchorKey();
         const isFirstBlock = currentBlockKey === firstBlockKey;
         const currentBlockType = RichUtils.getCurrentBlockType(editorState);
-        const isHeading = currentBlockType === HEADING;
+        const isHeading = currentBlockType === blocks.noteTitle;
         if (isFirstBlock !== isHeading) {
-            return RichUtils.toggleBlockType(editorState, HEADING);
+            return RichUtils.toggleBlockType(editorState, blocks.noteTitle);
         }
         return editorState;
     },

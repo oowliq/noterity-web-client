@@ -14,12 +14,14 @@ import {
 import { EditorGlobalStyles } from './EditorStyles';
 import { createFirstLineHeader } from './plugins';
 import { EditorHeader } from './EditorHeader';
+import { InlineToolbar } from './InlineToolbar';
 
 const { hasCommandModifier } = KeyBindingUtil;
 
 const EditorWrapper = styled.div`
     width: 100%;
     height: 100%;
+    position: relative;
 `;
 
 const firstLineHeaderPlugin = createFirstLineHeader();
@@ -170,9 +172,10 @@ class Editor extends Component<any, ComponentState> {
         const { editorState, lastSave } = this.state;
 
         return (
-            <EditorWrapper>
+            <EditorWrapper className="editor-container">
                 <EditorHeader editorState={editorState} lastSave={lastSave} onSave={this.handleSave} />
                 <EditorGlobalStyles />
+                <InlineToolbar editorState={editorState} />
                 <DraftEditor
                     editorState={editorState}
                     plugins={plugins}
