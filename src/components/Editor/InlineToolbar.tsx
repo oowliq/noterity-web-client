@@ -2,21 +2,25 @@ import React, { FC, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import posed, { PoseGroup } from 'react-pose';
 import { EditorState } from 'draft-js';
+import ClickOutHandler from 'react-onclickout';
 import * as utils from 'draftjs-utils';
 import { getSelectionCoords, getSelectionRange } from './utils';
 import { blocks } from './style-schema';
+import { InlineToolbarButton } from './InlineToolbarButton';
 
 interface InlineToolbarProps {
     editorState: EditorState;
 }
 
 const Wrapper = posed(styled.div<{ top: number; left: number }>`
-    background-color: ${(props) => props.theme.colors.background};
+    background-color: ${(props) => props.theme.colors.accent};
     z-index: 2;
     border-radius: 4px;
-    width: 50px;
-    height: 50px;
+    height: 40px;
+    padding: 2px;
     position: absolute;
+    overflow: hidden;
+
     ${(props) =>
         css`
             top: ${props.top}px;
@@ -49,6 +53,11 @@ const Wrapper = posed(styled.div<{ top: number; left: number }>`
     },
 });
 
+const ButtonsWrapper = styled.div`
+    height: 100%;
+    display: flex;
+`;
+
 const InlineToolbar: FC<InlineToolbarProps> = ({ editorState }) => {
     const [showed, setShowed] = useState<boolean>(false);
     const [position, setPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
@@ -56,6 +65,10 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState }) => {
     const currentBlock = utils.getSelectedBlocksType(editorState);
 
     const toggleToolbar = (): void => {
+        const containerEl = document.querySelector('.DraftEditor-editorContainer');
+        if (containerEl) {
+            const { left, top } = containerEl.getBoundingClientRect();
+        }
         if (!editorState.getSelection().isCollapsed()) {
             const selectionRange = getSelectionRange();
             if (!selectionRange) {
@@ -76,11 +89,37 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState }) => {
         }
     };
 
+    const handleHide = (): void => {
+        setShowed(false);
+    };
+
+    const handleClick = (e: React.MouseEvent): void => {
+        e.preventDefault();
+    };
+
+    const handleButtonClick = (e: React.MouseEvent): void => {
+        alert();
+    };
+
     useEffect((): void => {
         toggleToolbar();
     }, [editorState]);
 
-    return <PoseGroup>{showed && <Wrapper key={Number(showed)} top={position.top} left={position.left} />}</PoseGroup>;
+    return (
+        <PoseGroup>
+            {showed && (
+                <Wrapper key={Number(showed)} top={position.top} left={position.left} onMouseDown={handleClick}>
+                    <ClickOutHandler>
+                        <ButtonsWrapper key={Number(showed)}>
+                            <InlineToolbarButton onClick={handleButtonClick} />
+                            <InlineToolbarButton />
+                            <InlineToolbarButton />
+                        </ButtonsWrapper>
+                    </ClickOutHandler>
+                </Wrapper>
+            )}
+        </PoseGroup>
+    );
 };
 
 export { InlineToolbar };
