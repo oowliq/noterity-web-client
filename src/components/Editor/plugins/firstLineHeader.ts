@@ -1,7 +1,7 @@
 // Import and add to your Editor's plugins
 
 import { RichUtils, EditorState } from 'draft-js';
-import { blocks } from '../style-schema';
+import { blocks } from '../styleSchema';
 
 const createFirstLineHeader = () => ({
     onChange: (editorState: EditorState) => {

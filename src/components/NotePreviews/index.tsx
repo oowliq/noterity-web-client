@@ -1,7 +1,7 @@
-import React, { FC, useRef, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { NotePreviewMini } from 'components';
-import posed, { PoseGroup } from 'react-pose';
+import posed from 'react-pose';
 
 interface NotePreviewsProps {
     allItemsCount: number;
@@ -82,7 +82,10 @@ const NotePreviews: FC<NotePreviewsProps> = ({ allItemsCount, items }) => {
         <Wrapper>
             <PosedTitle pose={open ? 'open' : 'closed'}>
                 Notes
-                <TitleCount>({allItemsCount.toString()})</TitleCount>
+                <TitleCount>
+({allItemsCount.toString()}
+)
+</TitleCount>
             </PosedTitle>
             <Items>
                 {items
@@ -96,7 +99,9 @@ const NotePreviews: FC<NotePreviewsProps> = ({ allItemsCount, items }) => {
                 {items.length > 5 && (
                     <PosedItemWrapper pose={open ? 'open' : 'closed'}>
                         <GrayBlock>
-                            <GrayBlockTitle>{allItemsCount - 5}+</GrayBlockTitle>
+                            <GrayBlockTitle>{allItemsCount - 5}
++
+</GrayBlockTitle>
                         </GrayBlock>
                     </PosedItemWrapper>
                 )}

@@ -1,1 +1,1 @@
-export * from './first-line-header';
+export * from './firstLineHeader';

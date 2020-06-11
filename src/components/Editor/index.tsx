@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import { boundMethod } from 'autobind-decorator';
 import DraftEditor from 'draft-js-plugins-editor';
 import styled from 'styled-components';
-import {
-    EditorState,
-    RichUtils,
-    ContentBlock,
-    getDefaultKeyBinding,
-    KeyBindingUtil,
-    convertToRaw,
-    convertFromRaw,
-} from 'draft-js';
+import { EditorState, RichUtils, ContentBlock, getDefaultKeyBinding, KeyBindingUtil } from 'draft-js';
+import { editorStore } from 'store';
 import { EditorGlobalStyles } from './EditorStyles';
 import { createFirstLineHeader } from './plugins';
 import { EditorHeader } from './EditorHeader';
@@ -45,22 +39,9 @@ const styleMap = {
     },
 };
 
-interface ComponentState {
-    editorState: EditorState;
-    lastSave: Date | null;
-}
-
-class Editor extends Component<any, ComponentState> {
+@observer
+class Editor extends Component {
     private editor: DraftEditor | null = null;
-
-    constructor(props: any) {
-        super(props);
-
-        this.state = {
-            editorState: this.loadSavedData(),
-            lastSave: null,
-        };
-    }
 
     public componentDidMount(): void {
         this.handleFocus();
@@ -78,22 +59,6 @@ class Editor extends Component<any, ComponentState> {
         }
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    @boundMethod private loadSavedData(): EditorState {
-        const savedData = localStorage.getItem('editor-state');
-
-        if (savedData) {
-            const parsed = JSON.parse(savedData);
-            if (parsed) {
-                const content = convertFromRaw(parsed);
-                if (content) {
-                    return EditorState.createWithContent(content);
-                }
-            }
-        }
-        return EditorState.createEmpty();
-    }
-
     @boundMethod private handleFocus(): void {
         if (this.editor) this.editor.focus();
     }
@@ -101,15 +66,14 @@ class Editor extends Component<any, ComponentState> {
     @boundMethod private handleFocusOnTtile(): void {
         if (window.requestAnimationFrame)
             window.requestAnimationFrame(() => {
-                const { editorState } = this.state;
-                const currentContent = editorState.getCurrentContent();
+                const currentContent = editorStore.editorData.getCurrentContent();
                 const firstBlockKey = currentContent.getBlockMap().first().getKey();
-                const currentBlockKey = editorState.getSelection().getAnchorKey();
+                const currentBlockKey = editorStore.editorData.getSelection().getAnchorKey();
                 const isFirstBlock = currentBlockKey === firstBlockKey;
-                const currentBlockType = RichUtils.getCurrentBlockType(editorState);
+                const currentBlockType = RichUtils.getCurrentBlockType(editorStore.editorData);
                 const isHeading = currentBlockType === 'note-title';
                 if (isFirstBlock !== isHeading) {
-                    this.handleChange(RichUtils.toggleBlockType(editorState, 'note-title'));
+                    this.handleChange(RichUtils.toggleBlockType(editorStore.editorData, 'note-title'));
                 }
             });
     }
@@ -117,11 +81,10 @@ class Editor extends Component<any, ComponentState> {
     @boundMethod private handleNewLine(): void {
         if (window.requestAnimationFrame)
             window.requestAnimationFrame(() => {
-                const { editorState } = this.state;
-                const styles = editorState.getCurrentInlineStyle().toArray();
+                const styles = editorStore.editorData.getCurrentInlineStyle().toArray();
                 styles.forEach((style) => {
                     if (rs.includes(style)) {
-                        this.handleChange(RichUtils.toggleInlineStyle(editorState, style));
+                        this.handleChange(RichUtils.toggleInlineStyle(editorStore.editorData, style));
                     }
                 });
             });
@@ -146,7 +109,7 @@ class Editor extends Component<any, ComponentState> {
                 this.handleNewLine();
                 break;
             case 'editor-save':
-                this.handleSave();
+                editorStore.saveData();
                 break;
             default:
                 break;
@@ -159,25 +122,21 @@ class Editor extends Component<any, ComponentState> {
     }
 
     @boundMethod private handleChange(editorState: EditorState): void {
-        this.setState({ editorState });
-    }
-
-    @boundMethod private handleSave(): void {
-        const { editorState } = this.state;
-        this.setState({ lastSave: new Date() });
-        localStorage.setItem('editor-state', JSON.stringify(convertToRaw(editorState.getCurrentContent())));
+        editorStore.edit(editorState);
     }
 
     public render() {
-        const { editorState, lastSave } = this.state;
-
         return (
             <EditorWrapper className="editor-container">
-                <EditorHeader editorState={editorState} lastSave={lastSave} onSave={this.handleSave} />
+                <EditorHeader
+                    editorState={editorStore.editorData}
+                    lastSave={editorStore.lastSave}
+                    onSave={editorStore.saveData}
+                />
                 <EditorGlobalStyles />
-                <InlineToolbar editorState={editorState} />
+                <InlineToolbar editorState={editorStore.editorData} />
                 <DraftEditor
-                    editorState={editorState}
+                    editorState={editorStore.editorData}
                     plugins={plugins}
                     blockStyleFn={this.getBlockStyle}
                     onChange={this.handleChange}

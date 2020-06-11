@@ -5,7 +5,7 @@ import { EditorState } from 'draft-js';
 import ClickOutHandler from 'react-onclickout';
 import * as utils from 'draftjs-utils';
 import { getSelectionCoords, getSelectionRange } from './utils';
-import { blocks } from './style-schema';
+import { blocks } from './styleSchema';
 import { InlineToolbarButton } from './InlineToolbarButton';
 
 interface InlineToolbarProps {
@@ -67,7 +67,7 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState }) => {
     const toggleToolbar = (): void => {
         const containerEl = document.querySelector('.DraftEditor-editorContainer');
         if (containerEl) {
-            const { left, top } = containerEl.getBoundingClientRect();
+            // const { left, top } = containerEl.getBoundingClientRect();
         }
         if (!editorState.getSelection().isCollapsed()) {
             const selectionRange = getSelectionRange();
@@ -89,9 +89,9 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState }) => {
         }
     };
 
-    const handleHide = (): void => {
-        setShowed(false);
-    };
+    // const handleHide = (): void => {
+    //     setShowed(false);
+    // };
 
     const handleClick = (e: React.MouseEvent): void => {
         e.preventDefault();

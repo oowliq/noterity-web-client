@@ -1,3 +1,3 @@
 export * from './GlobalStyle';
-export * from './default-theme';
+export * from './defaultTheme';
 export * from './media';
