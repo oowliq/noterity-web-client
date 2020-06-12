@@ -11,7 +11,7 @@ const createFirstLineHeader = () => ({
         const isFirstBlock = currentBlockKey === firstBlockKey;
         const currentBlockType = RichUtils.getCurrentBlockType(editorState);
         const isHeading = currentBlockType === blocksSchema.noteTitle;
-        if (isFirstBlock !== isHeading) {
+        if (isFirstBlock && !isHeading) {
             return RichUtils.toggleBlockType(editorState, blocksSchema.noteTitle);
         }
         return editorState;

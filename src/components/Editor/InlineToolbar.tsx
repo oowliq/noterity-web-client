@@ -1,10 +1,9 @@
 import React, { FC, useEffect, useState, useRef } from 'react';
 import styled, { css } from 'styled-components';
-import posed, { PoseGroup } from 'react-pose';
+import posed from 'react-pose';
 import { EditorState, RichUtils } from 'draft-js';
 import ClickOutHandler from 'react-onclickout';
 import * as utils from 'draftjs-utils';
-import clearFormatting from 'draft-js-clear-formatting';
 import * as EditorIcons from 'components/icons/Editor';
 import { getSelectionCoords, getSelectionRange } from './utils';
 import { blocksSchema, inlineSchema } from './styleSchema';
@@ -29,27 +28,25 @@ const Wrapper = posed(styled.div<{ top: number; left: number }>`
             left: ${props.left}px;
         `};
 `)({
-    enter: {
+    showed: {
         y: 0,
         opacity: 1,
         transition: {
-            opacity: { velocity: 1000 },
             y: {
                 type: 'spring',
-                stiffness: 300,
-                damping: 50,
+                stiffness: 1000,
+                damping: 500,
             },
         },
     },
-    exit: {
-        y: '-100%',
+    hidden: {
+        y: '10%',
         opacity: 0,
         transition: {
-            opacity: { velocity: 1000 },
             y: {
                 type: 'spring',
-                stiffness: 300,
-                damping: 50,
+                stiffness: 1000,
+                damping: 500,
             },
         },
     },
@@ -69,11 +66,14 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
     const currentBlock = utils.getSelectedBlocksType(editorState);
 
     const toggleToolbar = (): void => {
-        const containerEl = document.querySelector('.DraftEditor-editorContainer');
-        if (containerEl) {
-            // const { left, top } = containerEl.getBoundingClientRect();
-        }
-        if (!editorState.getSelection().isCollapsed()) {
+        if (
+            !editorState.getSelection().isCollapsed() &&
+            editorState.getSelection().getHasFocus() &&
+            !!window
+                .getSelection()
+                ?.toString()
+                .replace(/\r\n|\r|\n|\s+/g, '')
+        ) {
             const selectionRange = getSelectionRange();
             if (!selectionRange) {
                 setShowed(false);
@@ -81,7 +81,7 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
             }
 
             const selectionCoords = getSelectionCoords(selectionRange, 50, 60);
-            if (currentBlock !== blocksSchema.noteTitle) {
+            if (!utils.getSelectedBlock(editorState).toArray().includes(blocksSchema.noteTitle)) {
                 setShowed(true);
                 if (selectionCoords)
                     setPosition({
@@ -94,16 +94,8 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
         }
     };
 
-    // const handleHide = (): void => {
-    //     setShowed(false);
-    // };
-
     const handleClick = (e: React.MouseEvent): void => {
         e.preventDefault();
-    };
-
-    const handleButtonClick = (e: React.MouseEvent): void => {
-        alert();
     };
 
     const handleToolbarCheck = (
@@ -140,67 +132,63 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
     }, [editorState]);
 
     return (
-        <PoseGroup>
-            {showed && (
-                <Wrapper
-                    key={Number(showed)}
-                    ref={toolbar}
-                    top={position.top}
-                    left={position.left}
-                    onMouseDown={handleClick}
-                >
-                    <ClickOutHandler>
-                        <ButtonsWrapper key={Number(showed)}>
-                            <InlineToolbarButton
-                                editorState={editorState}
-                                type="inline"
-                                styleName={inlineSchema.bold}
-                                clearStyles={[blocksSchema.title, blocksSchema.subTitle]}
-                                onCheck={handleToolbarCheck}
-                            >
-                                <EditorIcons.BoldIcon size={12} />
-                            </InlineToolbarButton>
-                            <InlineToolbarButton
-                                editorState={editorState}
-                                type="inline"
-                                clearStyles={[blocksSchema.title, blocksSchema.subTitle]}
-                                styleName={inlineSchema.italic}
-                                onCheck={handleToolbarCheck}
-                            >
-                                <EditorIcons.ItalicIcon size={12} />
-                            </InlineToolbarButton>
-                            <InlineToolbarButton
-                                editorState={editorState}
-                                type="block"
-                                resetOtherStyles
-                                styleName={blocksSchema.title}
-                                onCheck={handleToolbarCheck}
-                            >
-                                <EditorIcons.HeadOneIcon size={12} />
-                            </InlineToolbarButton>
-                            <InlineToolbarButton
-                                editorState={editorState}
-                                type="block"
-                                resetOtherStyles
-                                styleName={blocksSchema.subTitle}
-                                onCheck={handleToolbarCheck}
-                            >
-                                <EditorIcons.HeadTwoIcon size={12} />
-                            </InlineToolbarButton>
-                            <InlineToolbarButton
-                                editorState={editorState}
-                                type="block"
-                                resetOtherStyles
-                                styleName={blocksSchema.blockQuote}
-                                onCheck={handleToolbarCheck}
-                            >
-                                <EditorIcons.BlockquoteIcon size={12} />
-                            </InlineToolbarButton>
-                        </ButtonsWrapper>
-                    </ClickOutHandler>
-                </Wrapper>
-            )}
-        </PoseGroup>
+        <Wrapper
+            pose={showed ? 'showed' : 'hidden'}
+            ref={toolbar}
+            top={position.top}
+            left={position.left}
+            onMouseDown={handleClick}
+        >
+            <ClickOutHandler>
+                <ButtonsWrapper key={Number(showed)}>
+                    <InlineToolbarButton
+                        editorState={editorState}
+                        type="inline"
+                        styleName={inlineSchema.bold}
+                        clearStyles={[blocksSchema.title, blocksSchema.subTitle]}
+                        onCheck={handleToolbarCheck}
+                    >
+                        <EditorIcons.BoldIcon size={12} />
+                    </InlineToolbarButton>
+                    <InlineToolbarButton
+                        editorState={editorState}
+                        type="inline"
+                        clearStyles={[blocksSchema.title, blocksSchema.subTitle]}
+                        styleName={inlineSchema.italic}
+                        onCheck={handleToolbarCheck}
+                    >
+                        <EditorIcons.ItalicIcon size={12} />
+                    </InlineToolbarButton>
+                    <InlineToolbarButton
+                        editorState={editorState}
+                        type="block"
+                        resetOtherStyles
+                        styleName={blocksSchema.title}
+                        onCheck={handleToolbarCheck}
+                    >
+                        <EditorIcons.HeadOneIcon size={12} />
+                    </InlineToolbarButton>
+                    <InlineToolbarButton
+                        editorState={editorState}
+                        type="block"
+                        resetOtherStyles
+                        styleName={blocksSchema.subTitle}
+                        onCheck={handleToolbarCheck}
+                    >
+                        <EditorIcons.HeadTwoIcon size={12} />
+                    </InlineToolbarButton>
+                    <InlineToolbarButton
+                        editorState={editorState}
+                        type="block"
+                        resetOtherStyles
+                        styleName={blocksSchema.blockQuote}
+                        onCheck={handleToolbarCheck}
+                    >
+                        <EditorIcons.BlockquoteIcon size={12} />
+                    </InlineToolbarButton>
+                </ButtonsWrapper>
+            </ClickOutHandler>
+        </Wrapper>
     );
 };
 
