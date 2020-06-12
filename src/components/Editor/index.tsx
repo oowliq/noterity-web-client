@@ -9,6 +9,7 @@ import { EditorGlobalStyles } from './EditorStyles';
 import { createFirstLineHeader } from './plugins';
 import { EditorHeader } from './EditorHeader';
 import { InlineToolbar } from './InlineToolbar';
+import { blocksSchema, nonClearStyles } from './styleSchema';
 
 const { hasCommandModifier } = KeyBindingUtil;
 
@@ -20,8 +21,6 @@ const EditorWrapper = styled.div`
 
 const firstLineHeaderPlugin = createFirstLineHeader();
 const plugins = [firstLineHeaderPlugin];
-
-const rs = ['B'];
 
 const styleMap = {
     B: {
@@ -52,8 +51,14 @@ class Editor extends Component {
         switch (block.getType()) {
             case 'blockquote':
                 return 'RichEditor-blockquote';
-            case 'note-title':
+            case blocksSchema.noteTitle:
                 return 'RichEditor-note-title';
+            case blocksSchema.title:
+                return 'RichEditor-title';
+            case blocksSchema.subTitle:
+                return 'RichEditor-sub-title';
+            case blocksSchema.blockQuote:
+                return 'RichEditor-blockquote';
             default:
                 return '';
         }
@@ -83,10 +88,14 @@ class Editor extends Component {
             window.requestAnimationFrame(() => {
                 const styles = editorStore.editorData.getCurrentInlineStyle().toArray();
                 styles.forEach((style) => {
-                    if (rs.includes(style)) {
+                    if (!nonClearStyles.includes(style)) {
                         this.handleChange(RichUtils.toggleInlineStyle(editorStore.editorData, style));
                     }
                 });
+                const currentBlockStyles = RichUtils.getCurrentBlockType(editorStore.editorData).toString();
+                if (!nonClearStyles.includes(currentBlockStyles)) {
+                    this.handleChange(RichUtils.toggleBlockType(editorStore.editorData, currentBlockStyles));
+                }
             });
     }
 
@@ -130,7 +139,7 @@ class Editor extends Component {
             <EditorWrapper className="editor-container">
                 <EditorHeader lastSave={editorStore.lastSave} readingTime={editorStore.readingTime} />
                 <EditorGlobalStyles />
-                <InlineToolbar editorState={editorStore.editorData} />
+                <InlineToolbar editorState={editorStore.editorData} onChange={this.handleChange} />
                 <DraftEditor
                     editorState={editorStore.editorData}
                     plugins={plugins}

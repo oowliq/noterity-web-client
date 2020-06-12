@@ -14,6 +14,7 @@
         "components": "link:./src/components",
         "draft-js": "^0.11.5",
         "draft-js-buttons": "^2.0.2",
+        "draft-js-clear-formatting": "^1.0.0",
         "draft-js-inline-toolbar-plugin": "^3.0.1",
         "draft-js-plugins-editor": "^3.0.0",
         "draft-js-side-toolbar-plugin": "^3.0.2",

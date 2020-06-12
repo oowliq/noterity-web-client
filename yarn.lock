@@ -5710,6 +5710,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"draft-js-clear-formatting@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "draft-js-clear-formatting@npm:1.0.0"
+  peerDependencies:
+    draft-js: ">=0.10.1"
+  checksum: 3/cdf6e434a5e196426ebee67c2fa051c8d13c3b7da7a28928eb7914dcf939894de410fa084e19afd5b8e833ba17aeeccae4605edfc748d1e1ab0426dd948030ef
+  languageName: node
+  linkType: hard
+
 "draft-js-inline-toolbar-plugin@npm:^3.0.1":
   version: 3.0.1
   resolution: "draft-js-inline-toolbar-plugin@npm:3.0.1"
@@ -10622,6 +10631,7 @@ fsevents@^1.2.7:
     components: "link:./src/components"
     draft-js: ^0.11.5
     draft-js-buttons: ^2.0.2
+    draft-js-clear-formatting: ^1.0.0
     draft-js-inline-toolbar-plugin: ^3.0.1
     draft-js-plugins-editor: ^3.0.0
     draft-js-side-toolbar-plugin: ^3.0.2

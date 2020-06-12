@@ -31,6 +31,27 @@ const EditorStyles = createGlobalStyle`
             background-color: ${(props) => props.theme.fontColors.tinted};
         }
     }
+    .RichEditor-title {
+        font-weight: 300;
+        font-size: 35px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        position: relative;
+        margin-bottom: 1em;
+    }
+    .RichEditor-sub-title {
+        font-weight: 300;
+        font-size: 35px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        position: relative;
+        margin-bottom: 1em;
+    }
+    .RichEditor-blockquote {
+        border-left: 2px solid ${(props) => props.theme.fontColors.tinted};
+        padding-left: 1em;
+        font-size: 20px;
+    }
     .editor-inline-toolbar {
         position: absolute;
         background-color: ${(props) => props.theme.fontColors.backgroundMain};

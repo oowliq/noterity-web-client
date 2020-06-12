@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { BaseIcon, IconProps } from '../BaseIcon';
 
 const ItalicIcon: FC<IconProps> = ({ size, color }) => (
-    <BaseIcon viewBox="0 0 298.667 298.667" size={size} color={color}>
+    <BaseIcon viewBox="0 0 512 512" size={size} color={color}>
         <g>
             <polygon
-                points="106.667,0 106.667,64 153.92,64 80.747,234.667 21.333,234.667 21.333,298.667 192,298.667 192,234.667
-			144.747,234.667 217.92,64 277.333,64 277.333,0 		"
+                points="386.5,40 386.5,0 331.232,0 306.5,0 226.5,0 226.5,40 281.768,40 189.327,472 
+	125.5,472 125.5,512 205.5,512 221.673,512 285.5,512 285.5,472 230.232,472 322.673,40 "
             />
         </g>
     </BaseIcon>

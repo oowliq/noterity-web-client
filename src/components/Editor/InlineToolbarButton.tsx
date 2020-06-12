@@ -1,19 +1,69 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { EditorState, RichUtils } from 'draft-js';
 
-const Button = styled.button`
+interface ButtonStyledProps {
+    active: boolean;
+}
+
+const Button = styled.button<ButtonStyledProps>`
     border: none;
     outline: none;
-    background-color: ${(props) => props.theme.fontColors.tinted};
+    background-color: #fff;
     height: 100%;
     display: flex;
-    width: 30px;
+    width: 40px;
     align-items: center;
     justify-content: center;
+
+    &:hover {
+        cursor: pointer;
+        svg {
+            fill: ${(props) => props.theme.colors.accent};
+        }
+    }
+    ${(props) =>
+        props.active &&
+        css`
+            background: ${props.theme.fontColors.tinted};
+            svg {
+                fill: ${props.theme.colors.accent};
+            }
+        `}
 `;
 
-const InlineToolbarButton: FC<React.HTMLAttributes<HTMLButtonElement>> = (props) => {
-    return <Button {...props}>1</Button>;
+interface InlineToolbarButtonProps {
+    editorState: EditorState;
+    type: 'block' | 'inline';
+    styleName: string;
+    resetOtherStyles?: boolean;
+    onCheck: (type: 'block' | 'inline', styleName: string, clearOtherStyles: boolean, clearStyles: string[]) => void;
+    clearStyles?: string[];
+}
+
+const InlineToolbarButton: FC<InlineToolbarButtonProps> = ({
+    children,
+    resetOtherStyles,
+    editorState,
+    type,
+    styleName,
+    clearStyles,
+    onCheck,
+}) => {
+    const handleCheck = (): void => {
+        onCheck(type, styleName, resetOtherStyles || false, clearStyles || []);
+    };
+
+    const inlineActiveCheck =
+        type === 'inline'
+            ? editorState.getCurrentInlineStyle().has(styleName)
+            : RichUtils.getCurrentBlockType(editorState) === styleName;
+
+    return (
+        <Button active={inlineActiveCheck} onClick={handleCheck}>
+            {children}
+        </Button>
+    );
 };
 
 export { InlineToolbarButton };
