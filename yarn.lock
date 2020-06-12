@@ -7649,6 +7649,12 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"helpers@link:./src/helpers::locator=noterity-web-client%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "helpers@link:./src/helpers::locator=noterity-web-client%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "hex-color-regex@npm:^1.1.0":
   version: 1.1.0
   resolution: "hex-color-regex@npm:1.1.0"
@@ -10630,6 +10636,7 @@ fsevents@^1.2.7:
     eslint-plugin-react: ^7.20.0
     eslint-plugin-react-hooks: ^2.5.1
     globby: ^11
+    helpers: "link:./src/helpers"
     history: ^4.10.1
     immutable: ^4.0.0-rc.12
     interfaces: "link:./src/interfaces"
@@ -10651,7 +10658,6 @@ fsevents@^1.2.7:
     react-router: ^5.2.0
     react-router-dom: ^5.2.0
     react-scripts: 3.4.1
-    reading-time: ^1.2.0
     store: "link:./src/store"
     styled-components: ^5.1.1
     styled-media-query: ^2.1.2
@@ -13058,13 +13064,6 @@ fsevents@^1.2.7:
   dependencies:
     picomatch: ^2.2.1
   checksum: 3/0159f43eb0a90cf4fde5989b607e0a6bef4e6332dc8648f1b50fbc013f1158e1d021bcfd6dad1dc2895da2bb14cdac408239d047e3d61a01dd3a44376e6ec1f1
-  languageName: node
-  linkType: hard
-
-"reading-time@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "reading-time@npm:1.2.0"
-  checksum: 3/411ff81920c1c6841bd2542276a4ed5c529d2b0ab182cedf072eb768f1ac4acd3c50b6adc9572ac9540e6109bb9e5a004a553b510b15a70748f87047d2788ccf
   languageName: node
   linkType: hard
 

@@ -128,11 +128,7 @@ class Editor extends Component {
     public render() {
         return (
             <EditorWrapper className="editor-container">
-                <EditorHeader
-                    editorState={editorStore.editorData}
-                    lastSave={editorStore.lastSave}
-                    onSave={editorStore.saveData}
-                />
+                <EditorHeader lastSave={editorStore.lastSave} readingTime={editorStore.readingTime} />
                 <EditorGlobalStyles />
                 <InlineToolbar editorState={editorStore.editorData} />
                 <DraftEditor

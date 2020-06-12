@@ -1,14 +1,12 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
-import { EditorState } from 'draft-js';
 import moment from 'moment';
-import readingTime from 'reading-time';
+import { useInterval } from 'helpers';
 
 interface EditorHeaderProps {
-    editorState: EditorState;
     lastSave: Date | null;
-    onSave: () => void;
+    readingTime: { mins: number; text: string };
 }
 
 const SaveWrapper = styled.div``;
@@ -52,36 +50,25 @@ const Header = styled.div`
 const LastSaveTitle = styled.span`
     font-weight: 300;
     color: ${(props) => props.theme.fontColors.tinted};
+    margin-left: 1em;
 `;
 
-const EditorHeader: FC<EditorHeaderProps> = ({ editorState, lastSave, onSave }) => {
-    const [lastState, setLastState] = useState<EditorState>(editorState);
+const EditorHeader: FC<EditorHeaderProps> = ({ lastSave, readingTime }) => {
     const [lastSaveTitle, setLastSaveTitle] = useState<string>('');
 
-    let lastSaveInterval: ReturnType<typeof setInterval> | null = null;
-
-    useEffect((): void => {
-        if (!lastSave) return;
-
-        setLastState(editorState);
-        if (lastSaveInterval) clearInterval(lastSaveInterval);
-        setLastSaveTitle(`last save ${moment(lastSave).fromNow()}`);
-        lastSaveInterval = setInterval((): void => {
-            setLastSaveTitle(`last save ${moment(lastSave).fromNow()}`);
-        }, 1000);
-    }, [lastSave]);
-
-    const newContent = editorState.getCurrentContent().getPlainText() !== lastState.getCurrentContent().getPlainText();
-
-    const textReadingTime = readingTime(editorState.getCurrentContent().getPlainText());
+    useInterval((): void => {
+        let title = '';
+        if (lastSave) title = `last save ${moment(lastSave).fromNow()}`;
+        if (lastSaveTitle !== title) setLastSaveTitle(title);
+    }, 1000);
 
     return (
         <Header>
             <SaveWrapper>
-                {newContent && <SaveButton onClick={onSave}>Save</SaveButton>}
-                {!newContent && <LastSaveTitle>{lastSaveTitle}</LastSaveTitle>}
+                <SaveButton>Publish</SaveButton>
+                <LastSaveTitle>{lastSaveTitle}</LastSaveTitle>
             </SaveWrapper>
-            {!!textReadingTime.time && <WordsCounter>{textReadingTime.text}</WordsCounter>}
+            {!!readingTime.mins && <WordsCounter>{readingTime.text}</WordsCounter>}
         </Header>
     );
 };
