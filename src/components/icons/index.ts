@@ -5,3 +5,4 @@ export * from './PlanetIcon';
 export * from './SmileIcon';
 export * from './ListIcon';
 export * from './UserIcon';
+export * from './CloseIcon';
