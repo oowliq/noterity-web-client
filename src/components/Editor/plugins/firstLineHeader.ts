@@ -1,8 +1,10 @@
-// Import and add to your Editor's plugins
-
 import { RichUtils, EditorState } from 'draft-js';
-import { blocksSchema } from '../styleSchema';
+import { stylesSchema } from '../styleSchema';
 
+/**
+ * First line force header (like medium)
+ * @returns new editor state
+ */
 const createFirstLineHeader = () => ({
     onChange: (editorState: EditorState) => {
         const currentContent = editorState.getCurrentContent();
@@ -10,9 +12,9 @@ const createFirstLineHeader = () => ({
         const currentBlockKey = editorState.getSelection().getAnchorKey();
         const isFirstBlock = currentBlockKey === firstBlockKey;
         const currentBlockType = RichUtils.getCurrentBlockType(editorState);
-        const isHeading = currentBlockType === blocksSchema.noteTitle;
+        const isHeading = currentBlockType === stylesSchema.block.noteTitle.style;
         if (isFirstBlock && !isHeading) {
-            return RichUtils.toggleBlockType(editorState, blocksSchema.noteTitle);
+            return RichUtils.toggleBlockType(editorState, stylesSchema.block.noteTitle.style);
         }
         return editorState;
     },

@@ -9,7 +9,8 @@ import { EditorGlobalStyles } from './EditorStyles';
 import { createFirstLineHeader } from './plugins';
 import { EditorHeader } from './EditorHeader';
 import { InlineToolbar } from './InlineToolbar';
-import { blocksSchema, nonClearStyles } from './styleSchema';
+import { stylesSchema, Block } from './styleSchema';
+import { newLineClearStyles, prohibitionOfTitleDeletion } from './utils';
 
 const { hasCommandModifier } = KeyBindingUtil;
 
@@ -46,60 +47,33 @@ class Editor extends Component {
         this.handleFocus();
     }
 
-    // eslint-disable-next-line class-methods-use-this
+    /**
+     * Blocks styling
+     * @param block - block type
+     * @returns css block style
+     */
     @boundMethod private getBlockStyle(block: ContentBlock): string {
-        switch (block.getType()) {
-            case 'blockquote':
-                return 'RichEditor-blockquote';
-            case blocksSchema.noteTitle:
-                return 'RichEditor-note-title';
-            case blocksSchema.title:
-                return 'RichEditor-title';
-            case blocksSchema.subTitle:
-                return 'RichEditor-sub-title';
-            case blocksSchema.blockQuote:
-                return 'RichEditor-blockquote';
-            default:
-                return '';
+        const type = block.getType();
+
+        for (const styleName in stylesSchema.block) {
+            const current = stylesSchema.block[styleName as Block];
+            if (current.style === type) return current.css;
         }
+        return '';
     }
 
+    /**
+     * Focus on editor
+     */
     @boundMethod private handleFocus(): void {
         if (this.editor) this.editor.focus();
     }
 
-    @boundMethod private handleFocusOnTtile(): void {
-        if (window.requestAnimationFrame)
-            window.requestAnimationFrame(() => {
-                const currentContent = editorStore.editorData.getCurrentContent();
-                const firstBlockKey = currentContent.getBlockMap().first().getKey();
-                const currentBlockKey = editorStore.editorData.getSelection().getAnchorKey();
-                const isFirstBlock = currentBlockKey === firstBlockKey;
-                const currentBlockType = RichUtils.getCurrentBlockType(editorStore.editorData);
-                const isHeading = currentBlockType === 'note-title';
-                if (isFirstBlock !== isHeading) {
-                    this.handleChange(RichUtils.toggleBlockType(editorStore.editorData, 'note-title'));
-                }
-            });
-    }
-
-    @boundMethod private handleNewLine(): void {
-        if (window.requestAnimationFrame)
-            window.requestAnimationFrame(() => {
-                const styles = editorStore.editorData.getCurrentInlineStyle().toArray();
-                styles.forEach((style) => {
-                    if (!nonClearStyles.includes(style)) {
-                        this.handleChange(RichUtils.toggleInlineStyle(editorStore.editorData, style));
-                    }
-                });
-                const currentBlockStyles = RichUtils.getCurrentBlockType(editorStore.editorData).toString();
-                if (!nonClearStyles.includes(currentBlockStyles)) {
-                    this.handleChange(RichUtils.toggleBlockType(editorStore.editorData, currentBlockStyles));
-                }
-            });
-    }
-
-    // eslint-disable-next-line class-methods-use-this
+    /**
+     * Hot-keys handler
+     * @param e - Keyboard event
+     * @returns editor command
+     */
     @boundMethod private handleKeys(e: React.KeyboardEvent<HTMLInputElement>): string | null {
         if (e.keyCode === 83 /* `S` key */ && hasCommandModifier(e)) {
             return 'editor-save';
@@ -107,15 +81,21 @@ class Editor extends Component {
         return getDefaultKeyBinding(e);
     }
 
-    @boundMethod private handleKeyCommand(command: string, editorState: EditorState) {
+    /**
+     * Editor commands handler
+     * @param command - editor command
+     * @param editorState - editor state
+     * @returns handler status
+     */
+    @boundMethod private handleKeyCommand(command: string, editorState: EditorState): 'handled' | 'not-handled' {
         const newState = RichUtils.handleKeyCommand(editorState, command);
 
         switch (command) {
             case 'backspace':
-                this.handleFocusOnTtile();
+                prohibitionOfTitleDeletion();
                 break;
             case 'split-block':
-                this.handleNewLine();
+                newLineClearStyles();
                 break;
             case 'editor-save':
                 editorStore.saveData();
@@ -130,6 +110,10 @@ class Editor extends Component {
         return 'not-handled';
     }
 
+    /**
+     * Editor state handler
+     * @param editorState - new editor state
+     */
     @boundMethod private handleChange(editorState: EditorState): void {
         editorStore.edit(editorState);
     }

@@ -6,7 +6,7 @@ import ClickOutHandler from 'react-onclickout';
 import * as utils from 'draftjs-utils';
 import * as EditorIcons from 'components/icons/Editor';
 import { getSelectionCoords, getSelectionRange } from './utils';
-import { blocksSchema, inlineSchema } from './styleSchema';
+import { stylesSchema } from './styleSchema';
 import { InlineToolbarButton } from './InlineToolbarButton';
 import { InlineToolbarButtonWithField } from './InlineToolbarButtonWIthField';
 import { InlineToolbarField } from './InlineToolbarField';
@@ -95,7 +95,7 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
             }
 
             const selectionCoords = getSelectionCoords(selectionRange, 50, 60);
-            if (!utils.getSelectedBlock(editorState).toArray().includes(blocksSchema.noteTitle)) {
+            if (!utils.getSelectedBlock(editorState).toArray().includes(stylesSchema.block.noteTitle.style)) {
                 setShowed(true);
                 if (selectionCoords)
                     setPosition({
@@ -173,8 +173,8 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
                 <InlineToolbarButton
                     editorState={editorState}
                     type="inline"
-                    styleName={inlineSchema.bold}
-                    clearStyles={[blocksSchema.title, blocksSchema.subTitle]}
+                    styleName={stylesSchema.inline.bold.style}
+                    clearStyles={[stylesSchema.block.title.style, stylesSchema.block.subTitle.style]}
                     onCheck={handleToolbarCheck}
                 >
                     <EditorIcons.BoldIcon size={12} />
@@ -182,8 +182,8 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
                 <InlineToolbarButton
                     editorState={editorState}
                     type="inline"
-                    clearStyles={[blocksSchema.title, blocksSchema.subTitle]}
-                    styleName={inlineSchema.italic}
+                    clearStyles={[stylesSchema.block.title.style, stylesSchema.block.subTitle.style]}
+                    styleName={stylesSchema.inline.italic.style}
                     onCheck={handleToolbarCheck}
                 >
                     <EditorIcons.ItalicIcon size={12} />
@@ -192,7 +192,7 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
                     editorState={editorState}
                     type="block"
                     resetOtherStyles
-                    styleName={blocksSchema.title}
+                    styleName={stylesSchema.block.title.style}
                     onCheck={handleToolbarCheck}
                 >
                     <EditorIcons.HeadOneIcon size={12} />
@@ -201,7 +201,7 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
                     editorState={editorState}
                     type="block"
                     resetOtherStyles
-                    styleName={blocksSchema.subTitle}
+                    styleName={stylesSchema.block.subTitle.style}
                     onCheck={handleToolbarCheck}
                 >
                     <EditorIcons.HeadTwoIcon size={12} />
@@ -210,7 +210,7 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
                     editorState={editorState}
                     type="block"
                     resetOtherStyles
-                    styleName={blocksSchema.blockQuote}
+                    styleName={stylesSchema.block.blockQuote.style}
                     onCheck={handleToolbarCheck}
                 >
                     <EditorIcons.BlockquoteIcon size={12} />
