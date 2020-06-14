@@ -2,9 +2,13 @@ export type Block = 'noteTitle' | 'title' | 'subTitle' | 'blockQuote';
 
 export type Inline = 'bold' | 'italic';
 
+export interface MappedStyleObject {
+    [styleName: string]: string | number;
+}
+
 export interface StylesSchema {
     block: { [name in Block]: { style: string; css: string } };
-    inline: { [name in Inline]: { style: string; css: string } };
+    inline: { [name in Inline]: { style: string; cssObject: MappedStyleObject } };
 }
 
 const stylesSchema: StylesSchema = {
@@ -29,15 +33,30 @@ const stylesSchema: StylesSchema = {
     inline: {
         bold: {
             style: 'BOLD',
-            css: 'sss',
+            cssObject: {
+                fontWeight: 600,
+            },
         },
         italic: {
             style: 'ITALIC',
-            css: 'ssss',
+            cssObject: {
+                fontStyle: 'italic',
+            },
         },
     },
 };
 
+const getInlineStylesMapObject = (): { [inlineName: string]: MappedStyleObject } => {
+    const mappedObject: { [inlineName: string]: MappedStyleObject } = {};
+
+    for (const style in stylesSchema.inline) {
+        const current = stylesSchema.inline[style as Inline];
+        mappedObject[current.style] = current.cssObject;
+    }
+
+    return mappedObject;
+};
+
 const nonClearStyles: string[] = [];
 
-export { stylesSchema, nonClearStyles };
+export { stylesSchema, nonClearStyles, getInlineStylesMapObject };

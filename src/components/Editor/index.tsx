@@ -9,7 +9,7 @@ import { EditorGlobalStyles } from './EditorStyles';
 import { createFirstLineHeader } from './plugins';
 import { EditorHeader } from './EditorHeader';
 import { InlineToolbar } from './InlineToolbar';
-import { stylesSchema, Block } from './styleSchema';
+import { stylesSchema, Block, getInlineStylesMapObject } from './styleSchema';
 import { newLineClearStyles, prohibitionOfTitleDeletion } from './utils';
 
 const { hasCommandModifier } = KeyBindingUtil;
@@ -23,21 +23,7 @@ const EditorWrapper = styled.div`
 const firstLineHeaderPlugin = createFirstLineHeader();
 const plugins = [firstLineHeaderPlugin];
 
-const styleMap = {
-    B: {
-        fontWeight: 600,
-    },
-    I: {
-        fontStyle: 'italic',
-    },
-    TITLE: {
-        fontSize: '40px',
-        display: 'block',
-    },
-    SUBTITLE: {
-        fontSize: '25px',
-    },
-};
+const styleMap = getInlineStylesMapObject();
 
 @observer
 class Editor extends Component {
