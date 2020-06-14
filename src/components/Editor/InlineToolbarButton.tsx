@@ -36,14 +36,12 @@ interface InlineToolbarButtonProps {
     editorState: EditorState;
     type: 'block' | 'inline';
     styleName: string;
-    resetOtherStyles?: boolean;
-    onCheck: (type: 'block' | 'inline', styleName: string, clearOtherStyles: boolean, clearStyles: string[]) => void;
+    onCheck: (type: 'block' | 'inline', styleName: string, clearStyles: string[]) => void;
     clearStyles?: string[];
 }
 
 const InlineToolbarButton: FC<InlineToolbarButtonProps> = ({
     children,
-    resetOtherStyles,
     editorState,
     type,
     styleName,
@@ -51,7 +49,7 @@ const InlineToolbarButton: FC<InlineToolbarButtonProps> = ({
     onCheck,
 }) => {
     const handleCheck = (): void => {
-        onCheck(type, styleName, resetOtherStyles || false, clearStyles || []);
+        onCheck(type, styleName, clearStyles || []);
     };
 
     const inlineActiveCheck =

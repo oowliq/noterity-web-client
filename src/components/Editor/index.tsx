@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { boundMethod } from 'autobind-decorator';
 import DraftEditor from 'draft-js-plugins-editor';
+import * as utils from 'draftjs-utils';
 import styled from 'styled-components';
 import { EditorState, RichUtils, ContentBlock, getDefaultKeyBinding, KeyBindingUtil } from 'draft-js';
 import { editorStore } from 'store';
@@ -104,12 +105,41 @@ class Editor extends Component {
         editorStore.edit(editorState);
     }
 
+    /**
+     * Styling handler
+     * @param type - block type
+     * @param styleName - style name
+     * @param clearStyles - list of clear styles
+     */
+    @boundMethod private handleStyling(type: 'inline' | 'block', styleName: string, clearStyles?: string[]): void {
+        let newState = editorStore.editorData;
+        if (clearStyles) {
+            if (clearStyles.includes('all')) newState = utils.removeAllInlineStyles(newState);
+            else {
+                for (const style of clearStyles) {
+                    if (RichUtils.getCurrentBlockType(newState) === style) {
+                        newState = RichUtils.toggleBlockType(newState, style);
+                    }
+                    if (newState.getCurrentInlineStyle().has(style)) {
+                        newState = RichUtils.toggleInlineStyle(newState, style);
+                    }
+                }
+            }
+        }
+        if (type === 'inline') {
+            this.handleChange(RichUtils.toggleInlineStyle(newState, styleName));
+        }
+        if (type === 'block') {
+            this.handleChange(RichUtils.toggleBlockType(newState, styleName));
+        }
+    }
+
     public render() {
         return (
             <EditorWrapper className="editor-container">
                 <EditorHeader lastSave={editorStore.lastSave} readingTime={editorStore.readingTime} />
                 <EditorGlobalStyles />
-                <InlineToolbar editorState={editorStore.editorData} onChange={this.handleChange} />
+                <InlineToolbar editorState={editorStore.editorData} onStyling={this.handleStyling} />
                 <DraftEditor
                     editorState={editorStore.editorData}
                     plugins={plugins}

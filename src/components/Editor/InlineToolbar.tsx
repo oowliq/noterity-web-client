@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useState, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import posed from 'react-pose';
-import { EditorState, RichUtils } from 'draft-js';
-import ClickOutHandler from 'react-onclickout';
+import { EditorState } from 'draft-js';
 import * as utils from 'draftjs-utils';
 import * as EditorIcons from 'components/icons/Editor';
 import { getSelectionCoords, getSelectionRange } from './utils';
@@ -13,7 +12,7 @@ import { InlineToolbarField } from './InlineToolbarField';
 
 interface InlineToolbarProps {
     editorState: EditorState;
-    onChange: (state: EditorState) => void;
+    onStyling: (type: 'inline' | 'block', styleName: string, clearStyles?: string[]) => void;
 }
 
 interface FieldData {
@@ -67,7 +66,7 @@ const ButtonsWrapper = styled.div`
     border-radius: 5px;
 `;
 
-const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
+const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onStyling }) => {
     const [showed, setShowed] = useState<boolean>(false);
     const [position, setPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
     const toolbar = useRef<HTMLDivElement>(null);
@@ -112,52 +111,19 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
         if ((e.target as HTMLDivElement).tagName !== 'INPUT') e.preventDefault();
     };
 
-    const handleToolbarCheck = (
-        type: 'block' | 'inline',
-        styleName: string,
-        clearOtherStyles: boolean,
-        clearStyles: string[]
-    ): void => {
-        let newState = editorState;
-
-        if (clearOtherStyles) {
-            newState = utils.removeAllInlineStyles(editorState);
-        } else if (clearStyles) {
-            // eslint-disable-next-line no-restricted-syntax
-            for (const style of clearStyles) {
-                if (RichUtils.getCurrentBlockType(newState) === style) {
-                    newState = RichUtils.toggleBlockType(editorState, style);
-                }
-                if (newState.getCurrentInlineStyle().has(style)) {
-                    newState = RichUtils.toggleInlineStyle(editorState, style);
-                }
-            }
-        }
-        if (type === 'inline') {
-            onChange(RichUtils.toggleInlineStyle(newState, styleName));
-        }
-        if (type === 'block') {
-            onChange(RichUtils.toggleBlockType(newState, styleName));
-        }
-    };
-
     const handleFieldToggle = (title?: string): void => {
         if (!title) {
             setCurrentField(null);
-            //  if (currentField?.editorState) onChange(currentField.editorState);
         } else setCurrentField({ title, style: '', editorState });
-    };
-
-    const handleClickOut = (): void => {
-        if (currentField) {
-            setCurrentField(null);
-            setShowed(false);
-        }
     };
 
     useEffect((): void => {
         toggleToolbar();
     }, [editorState]);
+
+    const handleToolbarCheck = (type: 'block' | 'inline', styleName: string, clearStyles: string[]): void => {
+        onStyling(type, styleName, clearStyles);
+    };
 
     return (
         <Wrapper
@@ -167,7 +133,6 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
             left={position.left}
             onMouseDown={handleClick}
         >
-            {/* <ClickOutHandler onClickOut={handleClickOut} className={'sss'}> */}
             <InlineToolbarField showed={!!currentField} title={currentField?.title} onClose={handleFieldToggle} />
             <ButtonsWrapper key={Number(showed)}>
                 <InlineToolbarButton
@@ -191,7 +156,7 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
                 <InlineToolbarButton
                     editorState={editorState}
                     type="block"
-                    resetOtherStyles
+                    clearStyles={['all']}
                     styleName={stylesSchema.block.title.style}
                     onCheck={handleToolbarCheck}
                 >
@@ -200,7 +165,7 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
                 <InlineToolbarButton
                     editorState={editorState}
                     type="block"
-                    resetOtherStyles
+                    clearStyles={['all']}
                     styleName={stylesSchema.block.subTitle.style}
                     onCheck={handleToolbarCheck}
                 >
@@ -209,7 +174,7 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
                 <InlineToolbarButton
                     editorState={editorState}
                     type="block"
-                    resetOtherStyles
+                    clearStyles={['all']}
                     styleName={stylesSchema.block.blockQuote.style}
                     onCheck={handleToolbarCheck}
                 >
@@ -217,14 +182,13 @@ const InlineToolbar: FC<InlineToolbarProps> = ({ editorState, onChange }) => {
                 </InlineToolbarButton>
                 <InlineToolbarButtonWithField
                     editorState={editorState}
-                    resetOtherStyles
+                    clearStyles={['all']}
                     title="Paste link"
                     onToggle={handleFieldToggle}
                 >
                     Link
                 </InlineToolbarButtonWithField>
             </ButtonsWrapper>
-            {/* </ClickOutHandler> */}
         </Wrapper>
     );
 };
